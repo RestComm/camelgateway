@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="introduction">
+	<title>Introduction</title>
+   <para>&THIS.PLATFORM; &THIS.APPLICATION; is an Open Source Java based CAMEL Gateway Platform that routes CAMEL messages between signaling network and service applications. 
+	</para>
+	<para>&THIS.PLATFORM; &THIS.APPLICATION; acts as an intermediary platform linking the service applications to the GSM network in a session oriented communication. &THIS.PLATFORM; &THIS.APPLICATION; is an easy-to-install and easy-to-deploy platform. 
+	</para>
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; supports TDM hardware offered by major vendors in the market, namely Intel family boards (Dialogic) and 
+		Zaptel/Dahdi (Digium, Sangoma). TeleStax also offrers an in-house SS7 cards known as Restcomm SS7 Cards. Restcomm SS7 cards have on-board MTP2/3 support. Using Restcomm SS7 cards reduces the processing load on the server hosting the
+		&THIS.PLATFORM; &THIS.APPLICATION; platform.    
+	</para>
+	<para>&THIS.PLATFORM; &THIS.APPLICATION;
+		is based on the robust and proven &THIS.PLATFORM;
+		JAIN SLEE 1.1 Server and &THIS.PLATFORM;
+		jSS7 Stack.
+	&THIS.PLATFORM;
+		JAIN SLEE Server is a highly scalable event-driven application server with a robust component model and fault tolerant execution environment. It provides a set of connectors to a
+		variety of networks elements: SS7 MAP, TCAP, INAP, ISUP, SMPP, XMPP, SIP, MGCP, HTTP, XDM, XCAP, Diameter and many more. It is fully compliant with JSR 240 (JSLEE 1.1).
+	&THIS.PLATFORM;
+		jSS7 is a software based implementation of the SS7 protocol. It provides implementation for Level 2 and above in the SS7 protocol Stack. &THIS.PLATFORM;
+		jSS7 Stack User Guide is included for your convenience. You can refer to the guide for more details on the Stack.
+	</para>
+	<para>
+		The &THIS.PLATFORM; CAMEL Gateway makes use of HTTP protocol between the gateway and the third-party applications (or Value Added Service Modules). &THIS.PLATFORM; USSD Gateway receives the USSD request from the subscriber's handset/device via the GSM Signaling network and then translates these requests to HTTP depending on the rules configured in the Gateway. The traffic can be routed to a corresponding Value Added Service (VAS) or third-party application. The HTTP callback mechanism allows third-party applications to be developed independent of the underlying Operating System, Programming Language and Framework.
+	</para>
+	<para>
+		This guide will assist you with installing &THIS.PLATFORM; &THIS.APPLICATION;. For more details on configuring and using the platform, please refer to the &THIS.PLATFORM; &THIS.APPLICATION; User Guide. 
+	</para>
+</chapter>

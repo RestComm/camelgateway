@@ -1,0 +1,13 @@
+Name
+	camel networkrule show
+
+SYNOPSIS
+	camel networkrule show
+
+DESCRIPTION
+	This command is used to view the details of all configured network
+	routing rules in the CAMEL Gateway.
+
+SEE ALSO
+	camel networkrule, camel networkrule create, camel networkrule delete
+

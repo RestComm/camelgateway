@@ -1,0 +1,12 @@
+Name
+	camel get route
+
+SYNOPSIS
+	camel get route
+
+DESCRIPTION
+	This command is used get the default route of Camel Gw 
+
+
+SEE ALSO
+	camel set route

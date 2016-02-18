@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="notes">
+	<title>Important Notes</title>
+   <!-- <section id="jss7_overview">
+    	<title>Overview</title>-->
+	<section id="notes_download">
+		<title>Download</title>
+		<para>
+		The binary release is available for download from the TeleStax Customer Support Portal at <ulink url="&THIS.RELEASE_BINARY_URL;" />.
+		</para>
+	</section>
+	<section id="notes_doc">
+		<title>Documentation</title>
+		<para>
+		When you download the binary release and extract the contents of the zip file, you will notice that the top level directory is named <literal>restcomm-camelgateway-&lt;version&gt;</literal> and within the <literal>restcomm-camelgateway-&lt;version&gt;/docs</literal> folder you will find the &THIS.PLATFORM; &THIS.APPLICATION; Installation Guide and User Guide. For installation and usage guidance, please refer to these guides that will help you to install and configure the Gateway.
+		</para>
+	</section>
+	<section id="notes_whats_included">
+		<title>What's Included?</title>
+		<para>
+		This binary release includes: 
+		<itemizedlist>
+			<listitem><para>docs: Contains all relevant documentation.</para></listitem>
+			<listitem><para>jboss-5.1.0.GA: The core server with two profiles "default" and "simulator". The "default" profile is a clean profile where you will have to start from scratch and configure the entire SS7 Stack and Camel Gateway. The "simulator" profile is a pre-configured profile to work with jss7-simulator.</para></listitem>
+			<listitem><para>resources: Contains SLEE MAP, JDBC and http-client RA jars.</para></listitem>
+			<listitem><para>tools: Contains SLEE tools and jss7-simulator.</para></listitem>
+		</itemizedlist>
+		</para>
+	</section>
+	<section id="notes_support">
+		<title>Support</title>
+		<para>
+			&THIS.PLATFORM; &THIS.APPLICATION; &THIS.VERSION; is fully supported by TeleStax. For help with the software or to raise bugs please login to your account at <ulink url="https://telestax.zendesk.com/home" /> and follow the instructions.
+		</para>
+	</section>
+	<section id="notes_whats_new">
+		<title>What's New?</title>
+		<formalpara>
+			<title>XML Payload Changes</title>
+			<para>
+			&THIS.PLATFORM; &THIS.APPLICATION; version 6.2.0 and later are based on SS7 stack version 2.0. You must make note of the following minor XML payload changes.
+			
+			
+				<screen><![CDATA[
+				<origAddress pc="11161" ssn="146">
+				<ai value="19"/>
+				<gt type="org.mobicents.protocols.ss7.sccp.parameter.GT0100" tt="0" es="1" np="1" nai="4" digits="93781090614"/>
+				</origAddress>
+				<destAddress pc="0" ssn="146">
+				<ai value="18"/>
+				<gt type="org.mobicents.protocols.ss7.sccp.parameter.GT0100" tt="0" es="1" np="1" nai="4" digits="93781090001"/>
+				</destAddress>
+				]]></screen>
+				
+				The above has now been replaced by:
+				
+				<screen><![CDATA[
+				<origAddress pc="2" ssn="146">
+				<ai value="83"/>
+				<gt type="GlobalTitle0100" tt="0" es="1" np="1" nai="4" digits="2222201"/>
+				</origAddress>
+				<destAddress pc="0" ssn="8">
+				<ai value="18"/>
+				<gt type="GlobalTitle0100" tt="0" es="1" np="1" nai="4" digits="1111112"/>
+				</destAddress>
+				]]></screen>
+			</para>
+		</formalpara>
+				
+		<formalpara>
+        	<title>Support for new operations</title>
+        	<para>
+        		&THIS.PLATFORM; &THIS.APPLICATION; &THIS.VERSION; added support for following three new Operations
+        		<itemizedlist>
+					<listitem>
+						<para>connectToResource</para>
+					</listitem>
+					<listitem>
+						<para>furnishChargingInformation</para>
+					</listitem>					
+					<listitem>
+						<para>promptAndCollectUserInformation</para>
+					</listitem>										
+				</itemizedlist>
+        	</para>
+        </formalpara>
+        
+		<formalpara>
+        	<title>Support for Multi-Tenancy</title>
+        	<para>
+        		Multi tenancy allows a single instance of &THIS.PLATFORM; &THIS.APPLICATION; to connect to different operators, with each connection having its own links and point-codes.
+        	</para>
+        </formalpara>         
+        
+		<formalpara>
+        	<title>Call back to application for no activity timeout</title>
+        	<para>
+        		As of today CAMEL Gw keeps renewing the Dialog for every timeout without calling Application. 
+        		This can potentially create a leak scenario and Dialog can linger for ever if there is no response from peer.
+        	</para>
+        	<para>
+				Add new feature where users can configure time limit for no activity and Gateway should call App intimating that there is no activity. 
+				App may choose to End dialog or ignore if it wants to continue the Dialog.
+        	</para>
+        </formalpara>        		
+		
+		<formalpara>
+        	<title>Call back to application for providing assigned invoke id's</title>
+        	<para>
+        		&THIS.PLATFORM; &THIS.APPLICATION; &THIS.VERSION; now allows users to set value of property <literal>updateassignedinvokeids</literal>
+        		to true indicating that &THIS.PLATFORM; &THIS.APPLICATION; can send back HTTP Request carrying assigned invokeid to Application if the 
+        		previous response from App for original received request (for example IDP) carries the new cap message.
+        	</para>
+        </formalpara>
+        
+		<formalpara>
+        	<title>log4j templates for debug, info and production</title>
+        	<para>
+        		Added <literal>jboss-log4j.xml</literal> config files for <literal>debugging</literal> / <literal>default</literal> / <literal>production</literal> levels
+				into <literal>jboss/server/default/deploy/restcomm-camel-gateway/log4j-templates</literal>:
+        		<itemizedlist>
+					<listitem>
+						<para>jboss-log4j-debug.xml</para>
+					</listitem>
+					<listitem>
+						<para>jboss-log4j-default.xml</para>
+					</listitem>					
+					<listitem>
+						<para>jboss-log4j-production.xml</para>
+					</listitem>										
+				</itemizedlist>				
+        	</para>
+        </formalpara>          		
+
+	</section>
+	
+	<section id="features_bug_fixes">
+		<title>Issues Fixed</title>
+		<para>For a full list of resolved issues and their details, please refer to <ulink url="https://telestax.atlassian.net/projects/CAMELGW" />.</para>	
+<itemizedlist>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-8">CAMELGW-8</ulink>: Migrate to jSS7 6.2.4.GA </para></listitem>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-11">CAMELGW-11</ulink>: XmlCAPDialog uses actual GT class instead of short name</para></listitem>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-26">CAMELGW-26</ulink>: jss7-management-console always shows service as down</para></listitem>
+
+</itemizedlist>
+	</section>
+	<section id="Config_settings">
+		<title>Configuration Settings</title>
+		<para>You must perform post-installation configuration of the Gateway according to instructions in the &THIS.PLATFORM; &THIS.APPLICATION; Admin Guide. Before using in Production, 
+		you must remember to fine-tune Memory and logging settings for better performance.
+		</para>
+		<warning>
+			<para>
+				Failure to configure memory, logging and other settings as per the instructions in the Admin Guide may result in poor performance of the Gateway.
+			</para>
+		</warning>
+	</section>
+
+	
+</chapter>

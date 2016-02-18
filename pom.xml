@@ -1,0 +1,258 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>pom</packaging>
+
+	<parent>
+		<artifactId>mobicents-parent</artifactId>
+		<groupId>org.mobicents</groupId>
+		<version>2.27.18</version>
+	</parent>
+
+	<groupId>org.restcomm.camelgw</groupId>
+	<artifactId>parent</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+
+	<name>CAMEL Gateway Parent</name>
+
+
+
+	<properties>
+		<!-- RELEASE CONFIGURATION -->
+		<release.name>
+			${release.name.prefix}${project.parent.version}${release.name.suffix}
+		</release.name>
+
+		<jboss.microcontainer.version>2.2.0.M2</jboss.microcontainer.version>
+		<compiler.plugin.version>2.0.2</compiler.plugin.version>
+		<compile.source>1.5</compile.source>
+		<testng.version>6.2</testng.version>
+		<javolution.version>5.5.1</javolution.version>
+		<javassist.version>3.12.1.GA</javassist.version>
+		<surefire-plugin.version>2.19.1</surefire-plugin.version>
+		<xerces.version>2.9.1</xerces.version>
+		<log4j.version>1.2.14</log4j.version>
+		<drools.version>5.0.1</drools.version>
+		<servlet.version>2.5</servlet.version>
+		<concurrent.version>1.3.4</concurrent.version>
+		<mvel.dep.version>2.0.10</mvel.dep.version>
+
+		<mobicents.resources.http-servlet.version>2.8.10</mobicents.resources.http-servlet.version>
+		<mobicents.resources.http-client.version>2.8.10</mobicents.resources.http-client.version>
+		<mobicents.resources.cap.version>2.8.25</mobicents.resources.cap.version>
+
+		<ts.slee.version>2.8.10</ts.slee.version>
+		<jslee.ext.version>${ts.slee.version}</jslee.ext.version>
+
+		<restcomm.jss7.version>3.0.1329</restcomm.jss7.version>
+
+		<!-- mobicents but not strictly ss7 -->
+		<asn.version>2.0.3.FINAL</asn.version>
+		<stream.version>1.0.0.CR1</stream.version>
+		<sctp.version>1.6.0.FINAL</sctp.version>
+		<commons.version>1.0.0.CR1</commons.version>
+
+		<application.name>restcomm-camel-gateway</application.name>
+
+
+	</properties>
+
+	<modules>
+		<module>core</module>
+		<module>examples</module>
+		<module>test</module>
+	</modules>
+	<dependencies>
+
+	</dependencies>
+
+
+
+	<!-- RELEASE STUFF -->
+
+	<profiles>
+		<profile>
+			<id>maven-release</id>
+			<modules>
+				<module>docs</module>
+			</modules>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<configuration>
+							<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+							<preparationGoals>clean install</preparationGoals>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>release</id>
+			<modules>
+				<module>docs</module>
+			</modules>
+
+		</profile>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>install</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.2</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<groupId>org.mobicents.tools</groupId>
+				<version>
+					${mobicents.tools.mavenplugin.eclipse.version}
+				</version>
+				<inherited>false</inherited>
+				<executions />
+				<configuration>
+					<classpathExcludes>
+						<exclude>xml-apis:xml-apis</exclude>
+						<exclude>jtidy:jtidy</exclude>
+					</classpathExcludes>
+					<resolveTransitiveDependencies>
+						true
+					</resolveTransitiveDependencies>
+					<eclipseProjectName>
+						restcomm-camelgateway
+					</eclipseProjectName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler.plugin.version}</version>
+				<configuration>
+					<source>${compile.source}</source>
+					<target>${compile.source}</target>
+					<debug>${compile.debug}</debug>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:https://github.com/RestComm/camelgateway.git</connection>
+		<developerConnection>scm:git:https://github.com/RestComm/camelgateway.git</developerConnection>
+		<url>https://github.com/RestComm/camelgateway</url>
+	</scm>
+
+	<!-- repositories -->
+	<repositories>
+		<repository>
+			<id>mobicents-public-repository-group</id>
+			<name>Mobicens Public Maven Repository Group</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-3rd-party-repository-group</id>
+			<name>JBoss ThirdParty Releases Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jboss-3rd-party-upload-repository-group</id>
+			<name>JBoss ThirdParty Upload Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/thirdparty-upload</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>java.net-Public</id>
+			<name>Maven Java Net Snapshots and Releases</name>
+			<url>http://download.java.net/maven/2/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+
+    </repositories>
+
+</project>

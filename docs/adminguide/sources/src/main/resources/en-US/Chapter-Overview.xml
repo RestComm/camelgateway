@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+<chapter id="overview">
+
+    <title>Overview </title>
+
+    <section id="camel_overview">
+        <title>CAMEL</title>
+		<para>
+			CAMEL stands for Customized Applications for Mobile networks Enhanced Logic. It is a set of standards designed to work on either a GSM core network or on a UMTS network. 
+			CAMEL allows an operator to define services over standard GSM services/UMTS services. The CAMEL architecture is based on the Intelligent network (IN) standards, 
+			and uses the CAP protocol.
+		</para>
+		<para>
+			Many services can be created using CAMEL, especially, services relating to roaming subscribers. The list below is an example of some of these services:
+            <variablelist>
+                <varlistentry>
+                    <term>Virtual Private Network (VPN):</term>
+                    <listitem>
+                    	<para>
+                    		CAMEL enables a mobile VPN that simulates PBX-like dialing in a mobile environment. For example, a subscriber can dial "9901" and the call will be send to user Amit Bhayani at 996063-9901.
+                    	</para>
+                    </listitem>
+                </varlistentry>   
+                <varlistentry>
+                    <term>Call Redirect Services (CRS):</term>
+                    <listitem>
+                    	<para>
+                    		CAMEL is utilized to provide a variety of CRS services including redirecting international roaming subscribers to their desired customer care when they dial “123”
+                    	</para>
+                    </listitem>
+                </varlistentry>   
+                <varlistentry>
+                    <term>Conditional Call Forwarding:</term>
+                    <listitem>
+                    	<para>
+                    	Calls can be forwarded to another subscriber if the called party is busy or not available. You also have to option to perform unconditional calls.  
+                    	</para>
+                    </listitem>
+                </varlistentry>      
+                <varlistentry>
+                    <term>SMS:</term>
+                    <listitem>
+                    	<para>
+                    		CAMEL also allows you to fine-tune SMS and billing   
+                    	</para>
+                    </listitem>
+                </varlistentry>                                                         
+            </variablelist>   		
+		</para>
+	</section>
+
+	<section id="camel_entities">
+		<title>CAMEL Entities</title>
+		<para>
+			The main entities involved in CAMEL are
+           <variablelist>
+                <varlistentry>
+                    <term>Service Switching Function (SSF):</term>
+                    <listitem>
+                    	<para>
+                    		The IN control protocol at the exchange is handled by the service switching function (SSF). The
+							SSF passes call control from the exchange to the SCP and relays instructions from the SCP back
+							to the exchange. All IN protocol aspects are handled by the SSF. Figure below depicts the SSF in
+							an MSC.
+                    	</para>
+                    </listitem>
+                </varlistentry>   
+                <varlistentry>
+                    <term>Service Control Function (SCF):</term>
+                    <listitem>
+                    	<para>
+                    		The service control function (SCF) is the functional entity residing in the service control plane (SCP). It forms an application 
+                    		in the SCP that facilitates the execution of IN services. The SCP is an addressable node
+							in the SS7 network. Other nodes in the network may communicate with the SCP through the SS7
+							signaling protocol.
+                    	</para>
+                    </listitem>
+                </varlistentry>   
+            </variablelist>   		  
+   		</para>
+		<mediaobject>
+		    <imageobject>
+		        <imagedata align="center"
+		            fileref="images/SSF_inside_MSC.png" format="PNG" />
+		    </imageobject>
+		    <caption>
+		        <para>CAMEL SSF/SCF</para>
+		    </caption>
+		</mediaobject>   		
+    	<para>
+    		For example a subscriber may dial *#122# to reach a specific USSD service which is deployed in the home network. 
+    		The application may reply with a menu based on the dialed short code. One of the advantages of this service is that it is always available even when the subscriber is roaming.
+   		</para>
+	</section>
+    <section id="camel_gateway_desc">
+ 		<title>CAMEL Gateway</title>
+        <para>
+        	&THIS.PLATFORM; &THIS.APPLICATION; forms part of SCF. &THIS.PLATFORM; &THIS.APPLICATION; maintains the CAP Dialog and state modal, however it forwards the received CAP request over HTTP as XML payload 
+        	to configured Application.
+        </para>
+        <para>
+        	The application handles business logic and responds with a corresponding CAP message. The diagram below shows all the nodes involved
+        </para>
+		<mediaobject>
+		    <imageobject>
+		        <imagedata align="center"
+		            fileref="images/Restcomm-camel-gw.png" format="PNG" />
+		    </imageobject>
+		    <caption>
+		        <para>Restcomm CAMEL Gateway</para>
+		    </caption>
+		</mediaobject>         
+	</section>
+    <section id="restcomm_camel_overview">
+        <title>Major Features of &THIS.PLATFORM; &THIS.APPLICATION;</title>
+		<para>
+			&THIS.PLATFORM;'s implementation of CAMEL Gateway is the first and only open source CAMEL Gateway with a host of rich features and advantages.
+		</para>
+		<para>
+            <variablelist>
+                <varlistentry>
+                    <term>Java-based:</term>
+                    <listitem>
+                    	<para>
+                    		&THIS.PLATFORM; &THIS.APPLICATION; is the only Java based CAMEL Gateway. It is robust, reliable and can be installed on any Operating System that supports Java (JDK 7 and SCTP).
+                    	</para>
+                    </listitem>
+                </varlistentry>               
+                <varlistentry>
+                    <term>Open Source:</term>
+                    <listitem>
+                    	<para>
+                    		The Software is open-source, therefore, you get access to the source code and you also have the added value of being able to customize its features to your enterprise needs. Additionally, there is an active community providing product support.
+                   		</para>
+               		</listitem>
+                </varlistentry>   
+                <varlistentry>
+                    <term>SS7 Hardware Cards:</term>
+                    <listitem>
+                    	<para>
+                    		&THIS.PLATFORM; &THIS.APPLICATION; can be used with Restcomm SS7 boards or Intel family boards (Dialogic SS7 cards) or Zaptel/Dahdi compatible TDM devices (Digium, Sangoma).
+                   		</para>
+               		</listitem>
+                </varlistentry>               
+                <varlistentry>
+                    <term>SIGTRAN (M3UA):</term>
+                    <listitem>
+                    	<para>
+                    		It also has in-built support for SIGTRAN (M3UA using SCTP).
+                   		</para>
+               		</listitem>
+                </varlistentry>               
+                <varlistentry>
+                    <term>Easy Configuration and Management:</term>
+                    <listitem>
+                        <para>
+                            &THIS.PLATFORM; &THIS.APPLICATION; comes with an efficient Command Line Interface (CLI) tool allowing you to easily configure the gateway at run-time and manage it using
+                            simple intuitive commands.
+                            <itemizedlist>
+                                <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; is easily scalable with a configurable load-balancing and high available architecture.</para></listitem>
+                               <!--  <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; generates the CDR for every transaction, including the response of users to the menu provided.</para></listitem>  -->
+                            </itemizedlist>       
+                        </para>
+                    </listitem>
+                </varlistentry>               
+                <varlistentry>
+                    <term>Technical Specifications:</term>
+                    <listitem> <para>&THIS.PLATFORM; &THIS.APPLICATION; is not restricted by any license or Transaction Per Second model. The only restricting factor is memory + CPU capacity of the host servers,
+                        third-party applications or the underlying database service.
+                        <itemizedlist>
+                        <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; supports as many as 1,073,741,823 incoming and 1,073,741,823 outgoing concurrent sessions/dialogs.</para></listitem>
+                        <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; supports unlimited E1 links and the only limiting factor is the underlying TDM board used.</para></listitem>
+                        <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; SCTP supports as many associations as supported by the underlying Operating System.</para></listitem>
+                        <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; M3UA can be configured to have as many ASP's / IPSP's as needed by the system.</para></listitem>
+                        <listitem><para>&THIS.PLATFORM; &THIS.APPLICATION; SCCP can be configured to have virtually unlimited Global Title Translation rules and also supports wild characters for partial matching of Global Title digits.</para></listitem>
+                        </itemizedlist>       
+                    </para>
+                    </listitem>
+                </varlistentry>       
+                <varlistentry>
+                    <term>HTTP Transfer Mechanism:</term> 
+                    <listitem> <para>The &THIS.PLATFORM; USSD Gateway makes use of HTTP protocol between the gateway and the third-party applications (or Value Added Service Modules). &THIS.PLATFORM; USSD Gateway receives the USSD request from the subscriber's handset/device via the GSM Signaling network and then translates these requests to HTTP depending on the rules configured in the Gateway. These rules can direct the subscriber to corresponding Value Added Service (VAS) or third-party application. <!--</para>  <para>&THIS.PLATFORM; &THIS.APPLICATION; supports implementation of HTTP 1.1 standards and acts as a HTTP Client invoking (HTTP POST) the HTTP Application deployed on the third-party Application Server. The HTTP Request carries an XML payload with USSD specific information.</para>
+                        <para>-->
+                        The HTTP callback mechanism allows the third-party application to operate independently of the underlying Operating System, Programming Language and Framework. The third-party application can be either of the following technologies on any Operating System:
+                        <itemizedlist>
+                        <listitem><para>Apache Tomcat, JBoss AS, Oracle Application Server, IBM Websphere etc for JSP/Servlet on Java </para></listitem>
+                        <listitem><para>PHP</para></listitem>
+                        <listitem><para>Microsoft IIS for ASP</para></listitem>
+                        </itemizedlist>       
+                    </para>
+                    </listitem>
+                </varlistentry>  
+                <varlistentry>
+                    <term>Multi tenancy support</term>
+                    <listitem>
+                    	<para>
+                    		Same instance of &THIS.PLATFORM; &THIS.APPLICATION; can connect to different operators (MNO) and request from each can be directed to corresponding Application. 
+                    		For further details refer to <xref linkend="design_multitenancy"/> 
+                   		</para>
+               		</listitem>
+                </varlistentry>                                                   
+            </variablelist>   
+            </para>
+        </section>
+
+</chapter>
+
+

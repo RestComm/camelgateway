@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+<chapter id="configuring">
+
+	<title>Configuring</title>
+	<para>
+		Now that you have set up the Gateway you must configure it to suit your requirements. &THIS.PLATFORM; &THIS.APPLICATION; comes with an easy to use CLI (Shell) to allow easy configuration and management. This chapter will help you configure the &THIS.PLATFORM; &THIS.APPLICATION;.
+	</para>
+	<section id="configuring_ss7">
+		<title>Configuring the SS7 Stack</title>
+		<para>
+			You must configure the SS7 stack prior to configuring CAMEL Gateway. For details on configuring the SS7 Stack please refer to the Restcomm SS7 Stack User Guide.
+			You must first start the Shell as explained in the previous chapter and connect to the managed instance prior to configuring the Stack. 
+			The Restcomm SS7 Stack User Guide lists all available Shell commands to configure SS7. In addition, help files are available all the commands provided.
+		</para> 
+	</section>
+
+	<section id="setting_camel_routing_rules">
+		<title>Configuring CAMEL Gateway</title>
+		<para>
+			You must configure Routing Rule for the Gateway to forward all incoming CAP operations to third party application over HTTP. 
+			You can do this by using the <literal>camel set route</literal> command to forward all request to same URL irrespective of networkId (multi tenancy).</para>
+			<para>
+			For multi tenancy use command <literal>camel networkrule create</literal> for each networkId. If for any given network, there is no rule defined, &THIS.PLATFORM; &THIS.APPLICATION;
+			will use the default defined by <literal>camel set route</literal>
+			</para>
+		<section id="setting_camel_routing_rules_create">
+		<title>Create new Routing Rule</title>
+<variablelist>
+					<varlistentry>
+					<term>Command:</term>
+					<listitem><para>camel set route</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>SYNOPSIS</term>
+					<listitem><para>camel set route &lt;url&gt;</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>DESCRIPTION</term>
+					<listitem><para>This command is used to create a new routing rule for camel gateway.</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>EXAMPLES</term>
+					<listitem><para>
+<screen><![CDATA[
+camel set route http://localhost:8080/camelgwdemo/test
+]]>
+</screen>The above command will create routing rule in the CAMEL Gateway to forward all 
+	     incoming CAP operations to third party application (if multi tenancy is not used
+	     or for networkId for which no networkrule is created).
+				</para>
+
+				</listitem>
+					</varlistentry>
+				</variablelist>
+		</section>
+
+<section id="setting_camel_routing_rules_show">
+		<title>View CAMEL Routing Rules</title>
+<variablelist>
+					<varlistentry>
+					<term>Command:</term>
+					<listitem><para>camel get route</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>SYNOPSIS</term>
+					<listitem><para>camel get route</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>DESCRIPTION</term>
+					<listitem><para>This command is used to view details of configured routing rules in the
+	CAMEL Gateway.</para></listitem>
+					</varlistentry>
+					<varlistentry>
+					<term>EXAMPLES</term>
+					<listitem><para>
+<screen><![CDATA[
+camel get route 
+
+route = http://localhost:8080/camelgwdemo/test
+
+]]>
+</screen>
+
+				</para></listitem>
+					</varlistentry>
+				</variablelist>
+		</section>
+		
+		<section id="setting_camel_routing_rules_create_mt">
+		<title>Create new Routing Rule for multi tenancy</title>
+				<screen><![CDATA[
+Name
+	camel networkrule create
+
+SYNOPSIS
+	camel networkrule create <network-id> <url>
+
+DESCRIPTION
+	This command is used to create a new routing rule for a network id.
+
+EXAMPLES
+	camel networkrule create 0 http://10.199.7.23:8080/camel
+	
+	The above command will create a new network rule in the CAMEL Gateway for
+	the network id 0. When the CAMEL Gw detects incoming CAP message from
+	network id 0, gateway will direct the HTTP POST request to the URL 
+	http://10.199.7.23:8080/camel as specified by the routing rule.
+
+SEE ALSO
+	camel networkrule, camel networkrule delete, camel networkrule show
+			]]></screen>
+		</section>
+		<section id="setting_camel_routing_rules_delete_mt">
+		<title>Delete Routing Rule for multi tenancy</title>
+				<screen><![CDATA[
+Name
+	camel networkrule delete
+
+SYNOPSIS
+	camel networkrule delete <network-id>
+
+DESCRIPTION
+	This command is used to delete an existing routing rule for a network id.
+
+EXAMPLES
+	camel networkrule delete 0
+	
+	The above command will delete the network routing rule in the CAMEL Gateway
+	for the network id 0
+
+SEE ALSO
+	camel networkrule, camel networkrule create, camel networkrule show
+			]]></screen>
+		</section>	
+		<section id="setting_camel_routing_rules_show_mt">
+		<title>Show Routing Rule for multi tenancy</title>
+				<screen><![CDATA[
+Name
+	camel networkrule show
+
+SYNOPSIS
+	camel networkrule show
+
+DESCRIPTION
+	This command is used to view the details of all configured network routing
+	rules in the CAMEL Gateway.
+
+SEE ALSO
+	camel networkrule, camel networkrule create, camel networkrule delete
+			]]></screen>
+		</section>	
+		
+		<section id="setting_camel_noactivitytimeout">
+		<title>Set No Activity Timeout for Dialog</title>
+				<screen><![CDATA[
+Name
+	camel set noactivitytimeout
+
+SYNOPSIS
+	camel set noactivitytimeout <timeout-sec>
+
+DESCRIPTION
+	Once TCAP dialog is established, if there is no activity for 'x' 
+	seconds, it will timeout. 'x' is configurable, please see 
+	tcap set dialogidletimeout command. However in case of Camel 
+	Applications, the dialog can live much longer (for example call).
+	Camel gateway will keep renewing the TCAP dialog automatically, 
+	however if peer side is faulty or application didn't send proper 
+	response to end TCAP dialog, there will be leak and dialog will 
+	remain alive forever. To avoid such situations set the 
+	noactivitytimeout in seconds such that if there is no activity 
+	in dialog for 'noactivitytimeout' sec, Camel gateway will call 
+	application indicating same. Application may take corrective action 
+	like End TCAP dialog or send empty response back in which case TCAP 
+	dialog continues and Camel gateway again makes call to application 
+	after 'noactivitytimeout'
+
+PARAMETERS
+	Standard Parameters
+
+	timeout-sec		-	timeout in seconds after which application must 
+						be called if there is no activity in TCAP dialog.
+						Default value is 3600 seconds (1 hour).
+
+SEE ALSO
+	camel get noactivitytimeout
+			]]></screen>
+		</section>			
+		
+		<section id="getting_camel_noactivitytimeout">
+		<title>Get No Activity Timeout for Dialog</title>
+				<screen><![CDATA[
+Name
+	camel get noactivitytimeout
+
+SYNOPSIS
+	camel set noactivitytimeout
+
+DESCRIPTION
+	Retruns the noactivitytimeout value.
+	
+	Once TCAP dialog is established, if there is no activity for 'x' 
+	seconds, it will timeout. 'x' is configurable, please see 
+	tcap set dialogidletimeout command. However in case of Camel 
+	Applications, the dialog can live much longer (for example call).
+	Camel gateway will keep renewing the TCAP dialog automatically, 
+	however if peer side is faulty or application didn't send proper 
+	response to end TCAP dialog, there will be leak and dialog will 
+	remain alive forever. To avoid such situations set the 
+	noactivitytimeout in seconds such that if there is no activity 
+	in dialog for 'noactivitytimeout' sec, Camel gateway will call 
+	application indicating same. Application may take corrective action 
+	like End TCAP dialog or send empty response back in which case TCAP 
+	dialog continues and Camel gateway again makes call to application 
+	after 'noactivitytimeout'
+
+PARAMETERS
+	
+SEE ALSO
+	camel set noactivitytimeout
+			]]></screen>
+		</section>
+		
+		<section id="setting_camel_updateassignedinvokeids">
+		<title>Set Update Assigned Invoke Ids</title>
+				<screen><![CDATA[
+Name
+	camel set updateassignedinvokeids
+
+SYNOPSIS
+	camel set updateassignedinvokeids <true | false>
+
+DESCRIPTION
+	Once Application sends back HTTP response carrying CAP messages as XML 
+	payload to be sent to peer, Camel gateway will send these invokes to 
+	peer and assign InvokeId generated by Camel gateway. HTTP Application 
+	wouldn't be aware of which invoke id belongs to which CAP message and 
+	hence if there are some error's reported by peer (carrying invoke id), 
+	HTTP application wouldn't know this error is for which invoke? To avoid 
+	such situation set the updateAssignedInvokeIds to true so Camel gateway 
+	will send back HTTP request carrying all the assigned invokeId's as soon as it sends Invoke to peer
+
+PARAMETERS
+	Standard Parameters
+
+	true | false		-	If set to true, camel gateway will send the HTTP
+						request carrying assigned id's as explained above
+
+SEE ALSO
+	camel get updateassignedinvokeids
+			]]></screen>
+		</section>
+		
+		<section id="getting_camel_updateassignedinvokeids">
+		<title>Get Update Assigned Invoke Ids</title>
+				<screen><![CDATA[
+Name
+	camel get updateassignedinvokeids
+
+SYNOPSIS
+	camel get updateassignedinvokeids
+
+DESCRIPTION
+	
+	Retruns the value of updateassignedinvokeids
+	
+PARAMETERS
+	Standard Parameters
+
+	
+
+SEE ALSO
+	camel set updateassignedinvokeids
+			]]></screen>
+		</section>														
+		
+	</section>
+</chapter>

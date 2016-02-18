@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="urn:jboss:bean-deployer:2.0">
+
+
+	<bean name="SCTPManagement" class="org.mobicents.protocols.sctp.ManagementImpl">
+		<constructor>
+			<parameter>SCTPManagement</parameter>
+		</constructor>
+		<property name="persistDir">${jboss.server.data.dir}</property>
+	</bean>
+
+	<bean name="SCTPShellExecutor" class="org.mobicents.protocols.ss7.m3ua.impl.oam.SCTPShellExecutor">
+		<property name="sctpManagements">
+			<map keyClass="java.lang.String" valueClass="org.mobicents.protocols.sctp.ManagementImpl">
+				<entry>
+					<key>SCTPManagement</key>
+					<value>
+						<inject bean="SCTPManagement" />
+					</value>
+				</entry>
+			</map>
+		</property>
+	</bean>	
+	<!-- ==================================================================== -->
+	<!-- M3UA -->
+	<!-- M3UAManagement is managing the m3ua side commands -->
+	<!-- ==================================================================== -->
+	<!-- -->
+	<bean name="RoutingLabelFormat" class="org.mobicents.protocols.ss7.mtp.RoutingLabelFormat">
+		<constructor factoryClass="org.mobicents.protocols.ss7.mtp.RoutingLabelFormat"
+			factoryMethod="getInstance">
+			<parameter>ITU</parameter>
+		</constructor>
+	</bean>
+		
+	<bean name="Mtp3UserPart" class="org.mobicents.protocols.ss7.m3ua.impl.M3UAManagementImpl">
+		<constructor>
+			<parameter>Mtp3UserPart</parameter>
+			<parameter>Restcomm-CAMEL</parameter>
+		</constructor>
+		<property name="persistDir">${jboss.server.data.dir}</property>
+		<property name="transportManagement">
+			<inject bean="SCTPManagement" />
+		</property>
+		<property name="routingLabelFormat">
+			<inject bean="RoutingLabelFormat" />
+		</property>		
+	</bean>
+
+	<bean name="M3UAShellExecutor" class="org.mobicents.protocols.ss7.m3ua.impl.oam.M3UAShellExecutor">
+		<property name="m3uaManagements">
+			<map keyClass="java.lang.String" valueClass="org.mobicents.protocols.ss7.m3ua.impl.M3UAManagementImpl">
+				<entry>
+					<key>Mtp3UserPart</key>
+					<value>
+						<inject bean="Mtp3UserPart" />
+					</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- ==================================================================== -->
+	<!-- Scheduler -->
+	<!-- Scheduler for ss7 stack -->
+	<!-- ==================================================================== -->
+	<!-- -->
+	<bean name="SS7Clock" class="org.mobicents.protocols.ss7.scheduler.DefaultClock">
+	</bean>
+
+	<bean name="SS7Scheduler" class="org.mobicents.protocols.ss7.scheduler.Scheduler">
+		<property name="clock">
+			<inject bean="SS7Clock" />
+		</property>
+	</bean>	
+	
+	<!-- ==================================================================== -->
+	<!-- Dialogic Mtp3UserPart -->
+	<!-- ==================================================================== -->
+	<!-- <bean name="Mtp3UserPart" class="org.mobicents.ss7.hardware.dialogic.DialogicMtp3UserPart"> 
+		<property name="sourceModuleId">61</property> <property name="destinationModuleId">34</property> 
+		</bean> -->
+
+	<!-- ==================================================================== -->
+	<!-- SCCP Service -->
+	<!-- ==================================================================== -->
+	<bean name="SccpStack" class="org.mobicents.protocols.ss7.sccp.impl.SccpStackImpl">
+		<constructor>
+			<parameter>SccpStack</parameter>
+		</constructor>
+		<property name="persistDir">${jboss.server.data.dir}</property>
+		<property name="mtp3UserParts">
+			<map keyClass="java.lang.Integer" valueClass="org.mobicents.protocols.ss7.mtp.Mtp3UserPart">
+				<entry>
+					<key>1</key>
+					<value>
+						<inject bean="Mtp3UserPart" />
+					</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean name="SccpExecutor" class="org.mobicents.protocols.ss7.sccp.impl.oam.SccpExecutor">
+		<property name="sccpStacks">
+			<map keyClass="java.lang.String" valueClass="org.mobicents.protocols.ss7.sccp.impl.SccpStackImpl">
+				<entry>
+					<key>SccpStack</key>
+					<value>
+						<inject bean="SccpStack" />
+					</value>
+				</entry>
+			</map>		
+		</property>
+	</bean>
+
+	<!-- ==================================================================== -->
+	<!-- TCAP Service -->
+	<!-- ==================================================================== -->
+	<bean name="TcapStack" class="org.mobicents.protocols.ss7.tcap.TCAPStackImpl">
+		<constructor>
+			<parameter>TcapStack</parameter>
+			<parameter>
+				<inject bean="SccpStack" property="sccpProvider" />
+			</parameter>
+			<parameter>146</parameter>
+		</constructor>
+		<property name="persistDir">${jboss.server.data.dir}</property>
+<!--
+		<property name="dialogIdleTimeout">60000</property>
+		<property name="invokeTimeout">30000</property>
+		<property name="maxDialogs">25000</property>
+-->
+	</bean>
+
+	<bean name="TcapExecutor" class="org.mobicents.protocols.ss7.tcap.oam.TCAPExecutor">
+		<property name="tcapStacks">
+			<map keyClass="java.lang.String" valueClass="org.mobicents.protocols.ss7.tcap.TCAPStackImpl">
+				<entry>
+					<key>TcapStack</key>
+					<value>
+						<inject bean="TcapStack" />
+					</value>
+				</entry>								
+			</map>
+		</property>
+	</bean>	
+
+	<!-- ==================================================================== -->
+	<!-- CAP Service -->
+	<!-- ==================================================================== -->
+	<bean name="CapStack" class="org.mobicents.protocols.ss7.cap.CAPStackImpl">
+		<constructor>
+			<parameter>CapStack</parameter>
+			<parameter>
+				<inject bean="TcapStack" property="provider" />
+			</parameter>
+		</constructor>
+	</bean>
+
+	<!-- ==================================================================== -->
+	<!-- Shell Service -->
+	<!-- ==================================================================== -->
+	<!-- Define Shell Executor -->
+	<bean name="ShellExecutor" class="org.mobicents.ss7.management.console.ShellServer">
+		<constructor>
+			<parameter>
+				<inject bean="SS7Scheduler" />
+			</parameter>
+			<parameter>
+				<list class="javolution.util.FastList" elementClass="org.mobicents.ss7.management.console.ShellExecutor">
+					<inject bean="SccpExecutor" />
+					<inject bean="M3UAShellExecutor" />
+					<inject bean="SCTPShellExecutor" />
+					<inject bean="TcapExecutor" />
+					<inject bean="CamelShellExecutor" />
+				</list>
+			</parameter>
+		</constructor>
+
+		<property name="address">${jboss.bind.address}</property>
+		<property name="port">3435</property>
+		<!-- Enale secured CLI by un-commenting below line-->
+		<property name="securityDomain">java:/jaas/jmx-console</property>
+		 
+	</bean>
+
+	<!-- ==================================================================== -->
+	<!-- Restcomm SS7 Service -->
+	<!-- ==================================================================== -->
+	<bean name="CAPSS7Service" class="org.restcomm.applications.camel.bootstrap.SS7Service">
+		<constructor>
+			<parameter>CAP</parameter>
+		</constructor>
+		<annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX(name="org.mobicents.ss7:service=SS7Service",exposedInterface=org.mobicents.applications.camel.bootstrap.SS7ServiceMBean.class,registerDirectly=true)
+		</annotation>
+		<property name="jndiName">java:/mobicents/ss7/cap</property>
+		<property name="stack">
+			<inject bean="CapStack" property="CAPProvider" />
+		</property>
+	</bean>
+	
+	<!-- ==================================================================== -->
+	<!-- CAMEL -->
+	<!-- CamelManagement is managing the all camel server commands -->
+	<!-- ==================================================================== -->
+	<bean name="CamelManagement" class="org.restcomm.camelgateway.CamelManagement">
+		<constructor>
+			<parameter>CamelManagement</parameter>
+		</constructor>
+		<property name="persistDir">${jboss.server.data.dir}</property>
+	</bean>
+
+	<bean name="CamelShellExecutor" class="org.restcomm.camelgateway.CamelShellExecutor">
+		<property name="camelManagement">
+			<inject bean="CamelManagement" />
+		</property>
+	</bean>	
+	
+	<!-- ==================================================================== -->
+	<!-- Restcomm jSS7 Managemenet Service -->
+	<!-- ==================================================================== -->
+	<bean name="Ss7Management" class="org.mobicents.protocols.ss7.oam.common.jmxss7.Ss7Management">
+		<annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX(name="org.mobicents.ss7:service=Ss7Management",exposedInterface=org.mobicents.protocols.ss7.oam.common.jmxss7.Ss7ManagementMBean.class,registerDirectly=true)
+		</annotation>
+		<property name="agentId">jboss</property>
+	</bean>
+ 	
+ 	<bean name="RestcommAlarmManagement" class="org.mobicents.protocols.ss7.oam.common.alarm.AlarmProvider">
+ 		<constructor>
+ 			<parameter><inject bean="Ss7Management" /></parameter>
+ 			<parameter><inject bean="Ss7Management" /></parameter>
+ 		</constructor>
+ 	</bean>	
+ 	<bean name="RestcommStatisticManagement" class="org.mobicents.protocols.ss7.oam.common.statistics.CounterProviderManagement">
+ 		<constructor>
+ 			<parameter><inject bean="Ss7Management" /></parameter>
+ 		</constructor>
+ 		<property name="persistDir">${jboss.server.data.dir}</property>
+ 	</bean> 	
+	<bean name="RestcommSctpManagement" class="org.mobicents.protocols.ss7.oam.common.sctp.SctpManagementJmx">
+		<constructor>
+			<parameter><inject bean="Ss7Management" /></parameter>
+			<parameter><inject bean="SCTPManagement" /></parameter>
+		</constructor>
+	</bean>
+	
+	<bean name="RestcommM3uaManagement" class="org.mobicents.protocols.ss7.oam.common.m3ua.M3uaManagementJmx">
+		<constructor>
+			<parameter><inject bean="Ss7Management" /></parameter>
+			<parameter><inject bean="Mtp3UserPart" /></parameter>
+		</constructor>
+	</bean>	
+	<bean name="RestcommSccpManagement" class="org.mobicents.protocols.ss7.oam.common.sccp.SccpManagementJmx">
+		<constructor>
+			<parameter><inject bean="Ss7Management" /></parameter>
+			<parameter><inject bean="SccpStack" /></parameter>
+		</constructor>
+	</bean>	
+ 	<bean name="RestcommTcapManagement" class="org.mobicents.protocols.ss7.oam.common.tcap.TcapManagementJmx">
+ 		<constructor>
+ 			<parameter><inject bean="Ss7Management" /></parameter>
+ 			<parameter><inject bean="TcapStack" /></parameter>
+ 		</constructor>
+ 	</bean>		
+</deployment>
