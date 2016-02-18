@@ -1,0 +1,20 @@
+Name
+	camel set route
+
+SYNOPSIS
+	camel set route <url>
+
+DESCRIPTION
+	This command is used to create a new routing rule for camel gateway.
+	This will be default routing rule if there is no route defined
+	for specific networkId. Camel Gateway will forward HTTP request to URL 
+	specified here.
+
+PARAMETERS
+	Standard Parameters
+
+	url			-	url where HTTP POST request is to be sent with CAP 
+	                payload
+
+SEE ALSO
+	camel set noactivitytimeout

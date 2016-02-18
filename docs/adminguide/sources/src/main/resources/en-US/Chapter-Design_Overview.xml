@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="design_overview">
+	<title>Architecture</title>
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; is based on the robust and proven &THIS.PLATFORM; JAIN SLEE 1.1 Server and &THIS.PLATFORM; jSS7 Stack.
+	</para>
+	<para>
+		&THIS.PLATFORM; JAIN SLEE Server is a highly scalable event-driven application server with a robust component model and fault tolerant execution environment. It provides a set of connectors to a variety of networks elements like SS7 MAP, TCAP, INAP, ISUP, SMPP, XMPP, SIP, MGCP, HTTP, XDM, XCAP, Diameter and many others. &THIS.PLATFORM; JAIN SLEE Server is fully compliant with JSR 240 (JSLEE 1.1).
+	</para>
+	<para>
+		&THIS.PLATFORM; jSS7 is a software based implementation of the SS7 protocol. It provides implementation for Level 2 and above in the SS7 protocol Stack. &THIS.PLATFORM; jSS7 Stack User Guide is included in the product documentation for &THIS.PLATFORM; &THIS.APPLICATION;. We suggest that you refer to this guide for more details on the underlying jSS7 Stack.
+	</para>
+	<para>The diagram below depicts a high level design overview of &THIS.PLATFORM; &THIS.APPLICATION;.</para>
+	<mediaobject>
+		<imageobject>
+			<imagedata width="300px" align="center" fileref="images/camel-application-design-overview.png" format="PNG" />
+		</imageobject>
+		<caption>
+			<para>&THIS.APPLICATION;
+				Design overview
+			</para>
+		</caption>
+	</mediaobject>
+	<section id="geographic_redundancy">
+	<title>Geographic Redundancy</title>
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; provides Load Balancing and Fault Tolerance. You can pair two or more third-party Application Servers to provide Fault-Tolerance in the Gateway and GSM Network level.
+	</para>
+	<para>Geographic Redundancy can be achieved as shown in the diagram below:</para>
+	<mediaobject>
+		<imageobject>
+			<imagedata width="300px" align="center" fileref="images/MultipleGeoghraphicSite.png" format="PNG" />
+		</imageobject>
+		<caption>
+			<para>&THIS.APPLICATION; load balanced and high availability deployment
+			</para>
+		</caption>
+	</mediaobject>
+	</section>
+	<section id="supported_protocols">
+	<title>Protocols Supported for Proxy</title>
+		<para>As of now, the Gateway supports the following protocols for proxy:
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<acronym>HTTP</acronym>
+				</para>
+			</listitem>
+		</itemizedlist>
+	</section>
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Section-Supported_CAP_Operations.xml" />
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="Section-Multi_Tenancy.xml" />
+</chapter>
+

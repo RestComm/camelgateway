@@ -1,0 +1,81 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+		<section id="supported_cap_operations">
+	<title>CAP Operations Supported</title>
+		<para>As of now, the Gateway supports the following protocols for proxy:
+		</para>
+		<variablelist>
+			<varlistentry>
+			<term>CAMEL phase 1 (full support except of activityTest operation)</term>
+			<listitem>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>initialDP
+							</para>
+						</listitem>
+						<listitem>
+							<para>connect
+							</para>
+						</listitem>
+						<listitem>
+							<para>releaseCall
+							</para>
+						</listitem>
+						<listitem>
+							<para>requestReportBCSMEvent
+							</para>
+						</listitem>
+						<listitem>
+							<para>eventReportBCSM
+							</para>
+						</listitem>
+						<listitem>
+							<para>continue
+							</para>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>CAMEL phase 2 (partial support)</term>
+			<listitem>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>connectToResource
+							</para>
+						</listitem>
+						<listitem>
+							<para>furnishChargingInformation
+							</para>
+						</listitem>
+						<listitem>
+							<para>applyCharging
+							</para>
+						</listitem>
+						<listitem>
+							<para>applyChargingReport
+							</para>
+						</listitem>
+						<listitem>
+							<para>promptAndCollectUserInformation
+							</para>
+						</listitem>
+						<listitem>
+							<para>cancel
+							</para>
+						</listitem>
+					</itemizedlist>
+ 				</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+
+
+

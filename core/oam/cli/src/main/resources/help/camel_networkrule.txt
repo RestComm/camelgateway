@@ -1,0 +1,12 @@
+Name
+	camel networkrule
+
+SYNOPSIS
+	camel networkrule [create | delete | show]
+
+DESCRIPTION
+	This command is used to configure and manage routing rules in the CAMEL Gateway.
+ 
+SEE ALSO
+	camel networkrule create, camel networkrule delete, camel networkrule show
+

@@ -1,0 +1,19 @@
+Name
+	camel set
+
+SYNOPSIS
+	camel set [route]
+
+DESCRIPTION
+	This command is used to configure the CAMEL Gateway and set 
+	appropriate values for CAMEL GW parameters.
+
+PARAMETERS
+	Standard Parameters
+
+	route			-	configure a general Routing Rule
+
+SEE ALSO
+	camel set route
+
+

@@ -1,0 +1,28 @@
+Name
+	camel get noactivitytimeout
+
+SYNOPSIS
+	camel set noactivitytimeout
+
+DESCRIPTION
+	Retruns the noactivitytimeout value.
+	
+	Once TCAP dialog is established, if there is no activity for 'x' 
+	seconds, it will timeout. 'x' is configurable, please see 
+	tcap set dialogidletimeout command. However in case of Camel 
+	Applications, the dialog can live much longer (for example call).
+	Camel gateway will keep renewing the TCAP dialog automatically, 
+	however if peer side is faulty or application didn't send proper 
+	response to end TCAP dialog, there will be leak and dialog will 
+	remain alive forever. To avoid such situations set the 
+	noactivitytimeout in seconds such that if there is no activity 
+	in dialog for 'noactivitytimeout' sec, Camel gateway will call 
+	application indicating same. Application may take corrective action 
+	like End TCAP dialog or send empty response back in which case TCAP 
+	dialog continues and Camel gateway again makes call to application 
+	after 'noactivitytimeout'
+
+PARAMETERS
+	
+SEE ALSO
+	camel set noactivitytimeout

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sbb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD JAIN SLEE SBB 1.1//EN"
+                         "http://java.sun.com/dtd/slee-sbb-jar_1_1.dtd">
+<sbb-jar>
+	<sbb>
+		<description />
+		<sbb-name>CamelGatewaySbb</sbb-name>
+		<sbb-vendor>org.restcomm</sbb-vendor>
+		<sbb-version>1.0</sbb-version>
+		<sbb-alias>CamelGatewaySbb</sbb-alias>
+
+<!--
+		<sbb-ref>
+			<sbb-name>CamelRedirectSbb</sbb-name>
+			<sbb-vendor>org.mobicents</sbb-vendor>
+			<sbb-version>1.0</sbb-version>
+			<sbb-alias>CamelRedirectSbb</sbb-alias>
+		</sbb-ref>
+-->
+
+		<sbb-classes>
+			<sbb-abstract-class>
+				<sbb-abstract-class-name>org.restcomm.camelgateway.slee.CamelGatewaySbb</sbb-abstract-class-name>
+				<cmp-field>
+					<cmp-field-name>xmlCAPDialog</cmp-field-name>
+				</cmp-field>
+				<cmp-field>
+					<cmp-field-name>networkRoutingRule</cmp-field-name>
+				</cmp-field>
+				<cmp-field>
+					<cmp-field-name>capDialogClosed</cmp-field-name>
+				</cmp-field>
+				<cmp-field>
+					<cmp-field-name>timerID</cmp-field-name>
+				</cmp-field>
+<!--
+				<cmp-field>
+					<cmp-field-name>redirect</cmp-field-name>
+				</cmp-field>
+				<get-child-relation-method>
+					<sbb-alias-ref>CamelRedirectSbb</sbb-alias-ref>
+					<get-child-relation-method-name>getCamelRedirectSbbChildRelation</get-child-relation-method-name>
+					<default-priority>0</default-priority>
+				</get-child-relation-method>
+-->
+			</sbb-abstract-class>
+			<sbb-local-interface>
+				<sbb-local-interface-name>org.restcomm.camelgateway.slee.CamelGatewaySbbLocalObject</sbb-local-interface-name>
+			</sbb-local-interface>			
+		</sbb-classes>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_DELIMITER</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_DELIMITER</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="True">
+			<event-name>DIALOG_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+			<initial-event-select variable="ActivityContext" />
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_ACCEPT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_ACCEPT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_USERABORT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_USERABORT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_PROVIDERABORT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_PROVIDERABORT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_CLOSE</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_CLOSE</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_NOTICE</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_NOTICE</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_TIMEOUT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_TIMEOUT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DIALOG_RELEASE</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.DIALOG_RELEASE</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>INITIAL_DP_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.INITIAL_DP_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ACTIVITY_TEST_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.ACTIVITY_TEST_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ACTIVITY_TEST_RESPONSE</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.ACTIVITY_TEST_RESPONSE</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>APPLY_CHARGING_REPORT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.APPLY_CHARGING_REPORT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>APPLY_CHARGING_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.APPLY_CHARGING_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ASSIST_REQUEST_INSTRUCTIONS_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.ASSIST_REQUEST_INSTRUCTIONS_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CALL_INFORMATION_REPORT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CALL_INFORMATION_REPORT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CALL_INFORMATION_REQUEST_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CALL_INFORMATION_REQUEST_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CANCEL_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CANCEL_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CONNECT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CONNECT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CONNECT_TO_RESOURCE_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CONNECT_TO_RESOURCE_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>CONTINUE_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.CONTINUE_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>DISCONNECT_FORWARD_CONNECTION_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.DISCONNECT_FORWARD_CONNECTION_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ESTABLISH_TEMPORARY_CONNECTION_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.ESTABLISH_TEMPORARY_CONNECTION_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>EVENT_REPORT_BCSM_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.EVENT_REPORT_BCSM_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>FURNISH_CHARGING_INFORMATION_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.FURNISH_CHARGING_INFORMATION_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>PLAY_ANNOUNCEMENT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.PLAY_ANNOUNCEMENT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>RELEASE_CALL_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.RELEASE_CALL_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>PROMPT_AND_COLLECT_USER_INFORMATION_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.PROMPT_AND_COLLECT_USER_INFORMATION_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>PROMPT_AND_COLLECT_USER_INFORMATION_RESPONSE</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.PROMPT_AND_COLLECT_USER_INFORMATION_RESPONSE</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>REQUEST_REPORT_BCSM_EVENT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.REQUEST_REPORT_BCSM_EVENT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>RESET_TIMER_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.RESET_TIMER_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>SEND_CHARGING_INFORMATION_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.SEND_CHARGING_INFORMATION_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>SPECIALIZED_RESOURCE_REPORT_REQUEST</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.service.circuitSwitchedCall.SPECIALIZED_RESOURCE_REPORT_REQUEST</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>INVOKE_TIMEOUT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.INVOKE_TIMEOUT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ERROR_COMPONENT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.ERROR_COMPONENT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>REJECT_COMPONENT</event-name>
+			<event-type-ref>
+				<event-type-name>ss7.cap.REJECT_COMPONENT</event-type-name>
+				<event-type-vendor>org.mobicents</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>ResponseEvent</event-name>
+			<event-type-ref>
+				<event-type-name>net.java.client.slee.resource.http.event.ResponseEvent</event-type-name>
+				<event-type-vendor>net.java.client.slee</event-type-vendor>
+				<event-type-version>4.0</event-type-version>
+			</event-type-ref>
+		</event>
+		<event event-direction="Receive" initial-event="False">
+			<event-name>TimerEvent</event-name>
+			<event-type-ref>
+				<event-type-name>
+					javax.slee.facilities.TimerEvent
+				</event-type-name>
+				<event-type-vendor>javax.slee</event-type-vendor>
+				<event-type-version>1.0</event-type-version>
+			</event-type-ref>
+		</event>		
+		<resource-adaptor-type-binding>
+			<resource-adaptor-type-ref>
+				<resource-adaptor-type-name>HttpClientResourceAdaptorType</resource-adaptor-type-name>
+				<resource-adaptor-type-vendor>org.mobicents</resource-adaptor-type-vendor>
+				<resource-adaptor-type-version>4.0</resource-adaptor-type-version>
+			</resource-adaptor-type-ref>
+			<activity-context-interface-factory-name>slee/resources/http-client/acifactory</activity-context-interface-factory-name>
+			<resource-adaptor-entity-binding>
+				<resource-adaptor-object-name>slee/resources/http-client/sbbinterface</resource-adaptor-object-name>
+				<resource-adaptor-entity-link>HttpClientResourceAdaptor</resource-adaptor-entity-link>
+			</resource-adaptor-entity-binding>
+		</resource-adaptor-type-binding>
+		<resource-adaptor-type-binding>
+			<resource-adaptor-type-ref>
+				<resource-adaptor-type-name>CAPResourceAdaptorType</resource-adaptor-type-name>
+				<resource-adaptor-type-vendor>org.mobicents</resource-adaptor-type-vendor>
+				<resource-adaptor-type-version>2.0</resource-adaptor-type-version>
+			</resource-adaptor-type-ref>
+			<activity-context-interface-factory-name>slee/resources/cap/2.0/acifactory</activity-context-interface-factory-name>
+			<resource-adaptor-entity-binding>
+				<resource-adaptor-object-name>slee/resources/cap/2.0/provider</resource-adaptor-object-name>
+				<resource-adaptor-entity-link>CAPRA</resource-adaptor-entity-link>
+			</resource-adaptor-entity-binding>
+		</resource-adaptor-type-binding>
+	</sbb>
+
+</sbb-jar>

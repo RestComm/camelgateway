@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+
+<chapter id="introduction">
+	<title>Introduction to &THIS.PLATFORM; &THIS.APPLICATION; </title>
+	<para>&THIS.PLATFORM; &THIS.APPLICATION; is an Open Source Java based CAMEL Gateway Platform enabler intended for fast and easy Intelligent Networks (IN) services deployment in mobile networks using CAMEL Application Part (CAP) protocols. It enables operators to offer real-time  control of voice call, SMS and GPRS sessions in GSM networks, using service logic applications.
+	</para>
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; strictly adheres to the standards and specifications defined by the International Telecommunications Union (ITU).
+	</para>
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; acts as an intermediary platform linking the service applications to the GSM network in a session oriented communication. 
+	</para>
+	<para>	&THIS.PLATFORM; &THIS.APPLICATION; is an easy-to-install and easy-to-deploy platform. The Open Source Software gives you the flexibility to understand the source code. It is also possible to customise the product to meet your Enterprise needs.
+	</para>
+	
+	<para>
+		&THIS.PLATFORM; &THIS.APPLICATION; is based on the robust and proven &THIS.PLATFORM; JAIN SLEE 1.1 Server and &THIS.PLATFORM; jSS7 Stack.
+	</para>
+	<para>
+		This guide provides detailed information about configuration, supported protocols and compliant standards. For installation instructions, please refer to the Installation Guide that is included in the product documentation. For more details about the underlying jSS7 Stack, you can refer to the &THIS.PLATFORM; jSS7 Stack User Guide.
+	</para>
+</chapter>

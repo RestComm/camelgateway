@@ -1,0 +1,23 @@
+Name
+	camel networkrule create
+
+SYNOPSIS
+	camel networkrule create <network-id> <url>
+
+DESCRIPTION
+	This command is used to create a new routing rule for the network
+	specified by the parameter <network-id>.
+		
+	When the CAMEL GW detects an incoming CAP message from a network 
+	whose id is <network-id>, the gateway will direct the HTTP POST request
+	to the URL <url> as specified by the routing rule.
+
+EXAMPLES
+	camel networkrule create 0 http://10.199.7.23:8080/camel
+	
+	The above command will create a new network rule in the CAMEL Gateway for the 
+	network id 0. 
+	
+SEE ALSO
+	camel networkrule, camel networkrule delete, camel networkrule show
+

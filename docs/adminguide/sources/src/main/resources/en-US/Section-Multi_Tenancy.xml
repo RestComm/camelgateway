@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "${ent.filename}">
+%BOOK_ENTITIES;
+]>
+<section id="design_multitenancy">
+
+        <title>Multi tenancy support</title>
+        <para>
+        	Multi tenancy allows a single instance of &THIS.PLATFORM; &THIS.APPLICATION; to connect to different operators, with each connection having its own links and point-codes.
+        </para>
+        <para>
+			&THIS.PLATFORM; &THIS.APPLICATION; achieves Multi tenancy by splitting a model of SS7 network into several logical networks. Each logical network has a corresponding digital key called <literal>"networkId"</literal> with a default value of 0 (unless specified differently). For every <literal>"networkId"</literal>, you can specify a corresponding HTTP Application to separate the business logic for each network. 
+        </para>
+        <note>
+        	<para>
+        		If you would like to get more details about setting up Multi tenancy at jSS7, please refer to the Restcomm jSS7 Admin Guide.
+        	</para>
+        </note>
+        <para>
+        	The diagram below depicts the high level design for Multi tenancy support in &THIS.PLATFORM; &THIS.APPLICATION;.
+        </para>
+        <mediaobject>
+		<imageobject>
+			<imagedata width="300px" align="center" fileref="images/camel-application-design-overview-multitenancy.png" format="PNG" />
+		</imageobject>
+		<caption>
+			<para>&THIS.APPLICATION;
+				Multi tenancy
+			</para>
+		</caption>
+	</mediaobject>
+</section>
+
+
+
+

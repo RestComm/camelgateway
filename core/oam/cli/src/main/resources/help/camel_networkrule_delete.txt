@@ -1,0 +1,19 @@
+Name
+	camel networkrule delete
+
+SYNOPSIS
+	camel networkrule delete <network-id>
+
+DESCRIPTION
+	This command is used to delete an existing routing rule
+	for a network specified by the parameter <network-id>.
+
+EXAMPLES
+	camel networkrule delete 0
+	
+	The above command will delete the network routing rule in the
+	CAMEL Gateway for the network id 0
+
+SEE ALSO
+	camel networkrule, camel networkrule create, camel networkrule show
+

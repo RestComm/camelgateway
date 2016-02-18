@@ -1,0 +1,20 @@
+Name
+	camel get
+
+SYNOPSIS
+	camel get
+
+DESCRIPTION
+	This command is used to view the details of all CAMEL parameters.
+
+EXAMPLE
+	camel get
+
+	Output:
+
+	route = get a general Routing Rule value
+
+SEE ALSO
+	camel get route
+
+
