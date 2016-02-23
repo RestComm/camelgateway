@@ -1,4 +1,4 @@
-package org.mobicents.applications.camelgw.examples.http;
+package org.restcomm.applications.camelgw.examples.http;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +17,9 @@ import org.apache.log4j.Logger;
 import org.restcomm.camelgateway.EventsSerializeFactory;
 import org.restcomm.camelgateway.XmlCAPDialog;
 import org.mobicents.protocols.ss7.cap.api.CAPApplicationContext;
+import org.mobicents.protocols.ss7.cap.api.CAPException;
 import org.mobicents.protocols.ss7.cap.api.CAPMessage;
+import org.mobicents.protocols.ss7.cap.api.service.circuitSwitchedCall.ContinueRequest;
 import org.mobicents.protocols.ss7.cap.service.circuitSwitchedCall.ApplyChargingReportRequestImpl;
 import org.mobicents.protocols.ss7.cap.service.circuitSwitchedCall.ContinueRequestImpl;
 import org.mobicents.protocols.ss7.cap.service.circuitSwitchedCall.EventReportBCSMRequestImpl;
@@ -26,15 +28,16 @@ import org.mobicents.protocols.ss7.indicator.RoutingIndicator;
 import org.mobicents.protocols.ss7.sccp.impl.parameter.SccpAddressImpl;
 import org.mobicents.protocols.ss7.sccp.parameter.SccpAddress;
 
-public class TestForwardServlet extends HttpServlet {
+/**
+ * 
+ * @author amit bhayani
+ * 
+ */
+public class TestNoActivityTimeoutServlet extends HttpServlet {
 
-	private static final Logger logger = Logger.getLogger(TestServlet.class);
+	private static final Logger logger = Logger.getLogger(TestNoActivityTimeoutServlet.class);
 
 	private EventsSerializeFactory factory = null;
-
-	SccpAddress camelGwAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 1, 146);
-	SccpAddress thirdPartyAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 3, 146);
-	SccpAddress mnoAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 2, 146);
 
 	@Override
 	public void init() {
@@ -47,9 +50,11 @@ public class TestForwardServlet extends HttpServlet {
 		out.println("<html>");
 		out.println("<body>");
 		out.println("<h1>CAMEL Gw Demo Get</h1>");
+		SccpAddress orgAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 1, 8);
+		SccpAddress dstAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 2, 8);
 
-		XmlCAPDialog copy = new XmlCAPDialog(CAPApplicationContext.CapV1_gsmSSF_to_gsmSCF, camelGwAddress,
-				thirdPartyAddress, 12l, 13l);
+		XmlCAPDialog copy = new XmlCAPDialog(CAPApplicationContext.CapV1_gsmSSF_to_gsmSCF, orgAddress, dstAddress, 12l,
+				13l);
 
 		try {
 			byte[] data = factory.serialize(copy);
@@ -71,6 +76,17 @@ public class TestForwardServlet extends HttpServlet {
 			if (logger.isInfoEnabled()) {
 				logger.info("doPost. HttpSession=" + session.getId() + " Dialog = " + original);
 			}
+			
+			if((original.getNoActivityTimeout() != null) && (original.getNoActivityTimeout()) ){
+				try {
+					original.close(true);
+					this.sendResponse(response, original);
+				} catch (CAPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
 
 			FastList<CAPMessage> capMessages = original.getCAPMessages();
 
@@ -78,14 +94,10 @@ public class TestForwardServlet extends HttpServlet {
 
 				CAPMessage capMessage = n.getValue();
 				switch (capMessage.getMessageType()) {
-//				case initialDP_Request:
-//					InitialDPRequestImpl initialDPRequest = (InitialDPRequestImpl) capMessage;
-//					this.handleIdp(original, initialDPRequest);
-//					break;
-//				case continue_Request:
-//					ContinueRequestImpl continueRequest = (ContinueRequestImpl) capMessage;
-//					this.handleContinueRequest(original, continueRequest);
-//					break;
+				case initialDP_Request:
+					InitialDPRequestImpl initialDPRequest = (InitialDPRequestImpl) capMessage;
+					this.handleIdp(original, initialDPRequest);
+					break;
 				case applyChargingReport_Request:
 					ApplyChargingReportRequestImpl applyChargingReportRequest = (ApplyChargingReportRequestImpl) capMessage;
 					logger.info(String.format("Received applyChargingReportRequest=%s", applyChargingReportRequest));
@@ -123,20 +135,19 @@ public class TestForwardServlet extends HttpServlet {
 
 	}
 
-//	private void handleIdp(XmlCAPDialog original, InitialDPRequestImpl initialDPRequest) {
-//		logger.info(String.format("Received initialDPRequest=%s", initialDPRequest));
-//
-//		original.setRedirectRequest(true);
-//		original.setRemoteAddress(this.thirdPartyAddress);
-//		original.setLocalAddress(this.camelGwAddress);
-//	}
-//
-//	private void handleContinueRequest(XmlCAPDialog original, ContinueRequestImpl continueRequest) {
-//		logger.info(String.format("Received ContinueRequest=%s", continueRequest));
-//
-//		original.setRedirectRequest(false);
-//		original.setRemoteAddress(this.mnoAddress);
-//		original.setLocalAddress(this.camelGwAddress);
-//	}
+	private void handleIdp(XmlCAPDialog original, InitialDPRequestImpl initialDPRequest) {
+		//try {
+			logger.info(String.format("Received initialDPRequest=%s", initialDPRequest));
 
+			// Lets send back CON and end Dialog
+			original.getCAPMessages().clear();
+
+			ContinueRequest cue = new ContinueRequestImpl();
+			original.addCAPMessage(cue);
+
+			//original.close(false);
+//		} catch (CAPException e) {
+//			e.printStackTrace();
+//		}
+	}
 }

@@ -193,9 +193,9 @@
 		<constructor>
 			<parameter>CAP</parameter>
 		</constructor>
-		<annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX(name="org.mobicents.ss7:service=SS7Service",exposedInterface=org.mobicents.applications.camel.bootstrap.SS7ServiceMBean.class,registerDirectly=true)
+		<annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX(name="org.mobicents.ss7:service=SS7Service",exposedInterface=org.restcomm.applications.camel.bootstrap.SS7ServiceMBean.class,registerDirectly=true)
 		</annotation>
-		<property name="jndiName">java:/mobicents/ss7/cap</property>
+		<property name="jndiName">java:/restcomm/ss7/cap</property>
 		<property name="stack">
 			<inject bean="CapStack" property="CAPProvider" />
 		</property>

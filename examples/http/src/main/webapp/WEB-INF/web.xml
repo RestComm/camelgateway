@@ -6,17 +6,17 @@
 
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>
-		<servlet-class>org.mobicents.applications.camelgw.examples.http.TestServlet</servlet-class>
+		<servlet-class>org.restcomm.applications.camelgw.examples.http.TestServlet</servlet-class>
 	</servlet>
 
 	<servlet>
 		<servlet-name>TestNoActivityTimeoutServlet</servlet-name>
-		<servlet-class>org.mobicents.applications.camelgw.examples.http.TestNoActivityTimeoutServlet</servlet-class>
+		<servlet-class>org.restcomm.applications.camelgw.examples.http.TestNoActivityTimeoutServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
 		<servlet-name>TestForwardServlet</servlet-name>
-		<servlet-class>org.mobicents.applications.camelgw.examples.http.TestForwardServlet</servlet-class>
+		<servlet-class>org.restcomm.applications.camelgw.examples.http.TestForwardServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

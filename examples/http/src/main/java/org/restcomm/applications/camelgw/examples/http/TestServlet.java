@@ -1,4 +1,4 @@
-package org.mobicents.applications.camelgw.examples.http;
+package org.restcomm.applications.camelgw.examples.http;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,9 +33,9 @@ import org.mobicents.protocols.ss7.sccp.parameter.SccpAddress;
  * @author amit bhayani
  * 
  */
-public class TestNoActivityTimeoutServlet extends HttpServlet {
+public class TestServlet extends HttpServlet {
 
-	private static final Logger logger = Logger.getLogger(TestNoActivityTimeoutServlet.class);
+	private static final Logger logger = Logger.getLogger(TestServlet.class);
 
 	private EventsSerializeFactory factory = null;
 
@@ -75,17 +75,6 @@ public class TestNoActivityTimeoutServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			if (logger.isInfoEnabled()) {
 				logger.info("doPost. HttpSession=" + session.getId() + " Dialog = " + original);
-			}
-			
-			if((original.getNoActivityTimeout() != null) && (original.getNoActivityTimeout()) ){
-				try {
-					original.close(true);
-					this.sendResponse(response, original);
-				} catch (CAPException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
 			}
 
 			FastList<CAPMessage> capMessages = original.getCAPMessages();
@@ -136,7 +125,7 @@ public class TestNoActivityTimeoutServlet extends HttpServlet {
 	}
 
 	private void handleIdp(XmlCAPDialog original, InitialDPRequestImpl initialDPRequest) {
-		//try {
+		try {
 			logger.info(String.format("Received initialDPRequest=%s", initialDPRequest));
 
 			// Lets send back CON and end Dialog
@@ -145,9 +134,9 @@ public class TestNoActivityTimeoutServlet extends HttpServlet {
 			ContinueRequest cue = new ContinueRequestImpl();
 			original.addCAPMessage(cue);
 
-			//original.close(false);
-//		} catch (CAPException e) {
-//			e.printStackTrace();
-//		}
+			original.close(false);
+		} catch (CAPException e) {
+			e.printStackTrace();
+		}
 	}
 }
