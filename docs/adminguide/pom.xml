@@ -25,16 +25,4 @@
 		<module>sources-restcomm</module>
 		<module>jdocbook-restcomm</module>
 	</modules>
-	<distributionManagement>
-	    <repository>
-		<id>restcomm-releases-repository</id>
-		<name>Restcomm Releases Repository</name>
-		<url>http://telestax.artifactoryonline.com/telestax/releases</url>
-	    </repository>
-	    <snapshotRepository>
-	      <id>restcomm-snapshots-repository</id>
-	      <name>Restcomm Snapshots Repository</name>
-	      <url>http://telestax.artifactoryonline.com/telestax/snapshots</url>
-	    </snapshotRepository>
-	  </distributionManagement>
 </project>

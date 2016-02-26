@@ -18,7 +18,7 @@
 	<section id="notes_doc">
 		<title>Documentation</title>
 		<para>
-		When you download the binary release and extract the contents of the zip file, you will notice that the top level directory is named <literal>restcomm-camelgateway-&lt;version&gt;</literal> and within the <literal>restcomm-camelgateway-&lt;version&gt;/docs</literal> folder you will find the &THIS.PLATFORM; &THIS.APPLICATION; Installation Guide and User Guide. For installation and usage guidance, please refer to these guides that will help you to install and configure the Gateway.
+		When you download the binary release and extract the contents of the zip file, you will notice that the top level directory is named <literal>restcomm-camelgw-&lt;version&gt;</literal> and within the <literal>restcomm-camelgw-&lt;version&gt;/docs</literal> folder you will find the &THIS.PLATFORM; &THIS.APPLICATION; Installation Guide and User Guide. For installation and usage guidance, please refer to these guides that will help you to install and configure the Gateway.
 		</para>
 	</section>
 	<section id="notes_whats_included">
@@ -142,11 +142,11 @@
 	
 	<section id="features_bug_fixes">
 		<title>Issues Fixed</title>
-		<para>For a full list of resolved issues and their details, please refer to <ulink url="https://telestax.atlassian.net/projects/CAMELGW" />.</para>	
+		<para>For a full list of resolved issues and their details, please refer to <ulink url="https://telestax.atlassian.net/projects/camegateway" />.</para>	
 <itemizedlist>
-<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-8">CAMELGW-8</ulink>: Migrate to jSS7 6.2.4.GA </para></listitem>
-<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-11">CAMELGW-11</ulink>: XmlCAPDialog uses actual GT class instead of short name</para></listitem>
-<listitem><para><ulink url="https://telestax.atlassian.net/browse/CAMELGW-26">CAMELGW-26</ulink>: jss7-management-console always shows service as down</para></listitem>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/camegateway-8">camegateway-8</ulink>: Migrate to jSS7 6.2.4.GA </para></listitem>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/camegateway-11">camegateway-11</ulink>: XmlCAPDialog uses actual GT class instead of short name</para></listitem>
+<listitem><para><ulink url="https://telestax.atlassian.net/browse/camegateway-26">camegateway-26</ulink>: jss7-management-console always shows service as down</para></listitem>
 
 </itemizedlist>
 	</section>

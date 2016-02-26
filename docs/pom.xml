@@ -10,7 +10,7 @@
 	<groupId>org.restcomm.camelgw.docs</groupId>
 	<artifactId>restcomm-camelgw-docs</artifactId>
 
-	<name>Restcomm CamelGw :: Docs :: Parent :: ${project.artifactId}</name>
+	<name>Restcomm Camel Gateway :: Docs :: Parent :: ${project.artifactId}</name>
 	<packaging>pom</packaging>
 
 	<properties>

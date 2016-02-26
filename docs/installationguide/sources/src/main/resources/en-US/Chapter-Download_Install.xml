@@ -33,7 +33,7 @@
 	<section id="dir_structure">
 		<title>Directory Structure</title>
 	<para>
-		When you download the binary release, you will notice that the top level directory is named <literal>restcomm-camelgateway-&lt;version&gt;</literal> and immediately underneath, are four sub-directories as explained below:
+		When you download the binary release, you will notice that the top level directory is named <literal>restcomm-camelgw-&lt;version&gt;</literal> and immediately underneath, are four sub-directories as explained below:
 </para>
 <itemizedlist>
 			<listitem><para>docs: Contains all relevant documentation in respective subfolders for JSLEE, jSS7 and CAMEL.</para></listitem>
@@ -43,7 +43,7 @@
 		</itemizedlist>
 
 <screen><![CDATA[
-|- restcomm-camelgateway-<version>
+|- restcomm-camelgw-<version>
 		|- docs
 				|+ camel
 				|+ jss7
@@ -112,8 +112,8 @@
 						then add the specific release version.
 					</para>
 					<programlisting>
-[usr]$ git clone https://userid@bitbucket.org/telestax/restcomm-camelgateway.git
-[usr]$ cd restcomm-camelgateway
+[usr]$ git clone https://userid@bitbucket.org/telestax/restcomm-camelgw.git
+[usr]$ cd restcomm-camelgw
 [usr]$ git checkout &lt;version&gt;					
 					</programlisting>
 				

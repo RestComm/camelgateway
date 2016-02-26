@@ -27,7 +27,7 @@
 				<step>
 					<para>
 						In order to start the Gateway, you must start the JBoss Application Server. Execute the <filename>run.sh</filename> (Unix) or 
-						<filename>run.bat</filename> (Microsoft Windows) startup script in the <filename>restcomm-camelgateway-6.1.1.GA/jboss-5.1.0.GA/bin</filename> folder (on Unix or Windows).
+						<filename>run.bat</filename> (Microsoft Windows) startup script in the <filename>restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin</filename> folder (on Unix or Windows).
 						Note that this will start the server in the default profile. The "default" profile is a clean profile, which entails configuring the entire SS7 Stack and CAMEL Gateway.
 					</para>
 				</step>
@@ -87,7 +87,7 @@
 			<procedure>
 				<title>Stop the Gateway</title>
 				<step><para>To stop the &THIS.PLATFORM; &THIS.APPLICATION;, you must shut down the JBoss Application Server. To shut down the server(s) you must execute the <command>shutdown.sh -s</command> (Unix) or 
-					<command>shutdown.bat -s</command> (Microsoft Windows) script in the <filename>restcomm-camelgateway-6.1.1.GA/jboss-5.1.0.GA/bin</filename>
+					<command>shutdown.bat -s</command> (Microsoft Windows) script in the <filename>restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin</filename>
 					directory (on Unix or Windows).</para></step>
 				<step><para> If the server stopped properly, you will see the following three lines as the 
 					last output in the Unix terminal or Command Prompt:
@@ -113,7 +113,7 @@ Halting VM]]></screen></para></step>
 			<title>Running the Shell</title>	
 		<para>
 			Before you execute commands to configure the Gateway, you must start the Shell client and connect to the managed instance. The shell terminal can be started by issuing the following command from
-			<filename>restcomm-camelgateway-6.1.1.GA/jboss-5.1.0.GA/bin</filename> directory:
+			<filename>restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin</filename> directory:
 		</para>
 		<programlisting>[$] ./ss7-cli.sh</programlisting>
 		<para>Once console starts, it will print the following information and await further commands:</para>

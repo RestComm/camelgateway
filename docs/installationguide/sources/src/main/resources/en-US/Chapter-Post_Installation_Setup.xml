@@ -25,14 +25,14 @@
 <section id="ss7_camel_settings">
 		<title>Configuring the Gateway</title>
 		<para>
-		Once you have installed &THIS.PLATFORM; &THIS.APPLICATION;, you can go ahead and configure the SS7 Stack and the CAMEL Gateway. The &THIS.PLATFORM; jSS7 Stack User Guide in the <filename>restcomm-camelgateway-&lt;version&gt;/docs/ss7/</filename> folder will assist you in configuring and managing the SS7 Stack. </para>
+		Once you have installed &THIS.PLATFORM; &THIS.APPLICATION;, you can go ahead and configure the SS7 Stack and the CAMEL Gateway. The &THIS.PLATFORM; jSS7 Stack User Guide in the <filename>restcomm-camelgw-&lt;version&gt;/docs/ss7/</filename> folder will assist you in configuring and managing the SS7 Stack. </para>
 <note>
 <title>Configure SS7 before CAMEL Gateway</title>
 <para>
 Make sure you configure the SS7 Stack before configuring the CAMEL Gateway.
 </para>
 </note>
-<para>The &THIS.PLATFORM; &THIS.APPLICATION; Admin Guide in the <filename>restcomm-camelgateway-&lt;version&gt;/docs/camel/</filename> folder will assist you in configuring and managing the CAMEL Gateway. To configure and manage both the Stack and the Gateway you must use the Command Line Interface (CLI) tool that comes with the platform. For instructions on starting the Shell and help with commands, please refer to the &THIS.PLATFORM; &THIS.APPLICATION; Admin Guide.
+<para>The &THIS.PLATFORM; &THIS.APPLICATION; Admin Guide in the <filename>restcomm-camelgw-&lt;version&gt;/docs/camel/</filename> folder will assist you in configuring and managing the CAMEL Gateway. To configure and manage both the Stack and the Gateway you must use the Command Line Interface (CLI) tool that comes with the platform. For instructions on starting the Shell and help with commands, please refer to the &THIS.PLATFORM; &THIS.APPLICATION; Admin Guide.
 		</para>	
 	</section>
 

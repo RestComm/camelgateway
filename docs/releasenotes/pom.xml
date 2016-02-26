@@ -10,7 +10,7 @@
 
 	<artifactId>restcomm-camelgw-releasenotes</artifactId>
 	<groupId>org.restcomm.camelgw.docs.releasenotes</groupId>
-	<name>Restcomm CamelGw :: Docs :: Release Notes :: ${project.artifactId}</name>
+	<name>restcomm.camelgw :: Docs :: Release Notes :: ${project.artifactId}</name>
 	<packaging>pom</packaging>
 
 	<properties>

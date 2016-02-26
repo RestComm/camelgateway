@@ -3,12 +3,12 @@
                              "http://java.sun.com/dtd/slee-service-xml_1_1.dtd">
 <service-xml>
 	<service>
-		<service-name>mobicents-camelgateway</service-name>
-		<service-vendor>org.mobicents</service-vendor>
+		<service-name>restcomm-camelgateway</service-name>
+		<service-vendor>org.restcomm</service-vendor>
 		<service-version>1.0</service-version>
 		<root-sbb>
 			<sbb-name>CamelGatewaySbb</sbb-name>
-			<sbb-vendor>org.mobicents</sbb-vendor>
+			<sbb-vendor>org.restcomm</sbb-vendor>
 			<sbb-version>1.0</sbb-version>
 		</root-sbb>
 		<default-priority>51</default-priority>

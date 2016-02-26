@@ -47,7 +47,7 @@
 					<term>EXAMPLES</term>
 					<listitem><para>
 <screen><![CDATA[
-camel set route http://localhost:8080/camelgwdemo/test
+camel set route http://localhost:8080/camegatewaydemo/test
 ]]>
 </screen>The above command will create routing rule in the CAMEL Gateway to forward all 
 	     incoming CAP operations to third party application (if multi tenancy is not used
@@ -81,7 +81,7 @@ camel set route http://localhost:8080/camelgwdemo/test
 <screen><![CDATA[
 camel get route 
 
-route = http://localhost:8080/camelgwdemo/test
+route = http://localhost:8080/camegatewaydemo/test
 
 ]]>
 </screen>
