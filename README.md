@@ -42,7 +42,7 @@ RestComm Camel Gateway is licensed under dual license policy. The default licens
 
 ## Continuous Integration and Delivery
 
-[![RestComm USSD Gateway Continuous Job](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://mobicents.ci.cloudbees.com/job/RestComm-Camel-Gateway//)
+[![RestComm Camel Gateway Continuous Job](http://www.cloudbees.com/sites/default/files/Button-Built-on-CB-1.png)](https://mobicents.ci.cloudbees.com/job/RestComm-Camel-Gateway//)
 
 ## Acknowledgements
 [See who has been contributing to RestComm](http://www.telestax.com/opensource/acknowledgments/)
@@ -59,11 +59,11 @@ Read our [RestComm Camel Gateway wiki](https://github.com/RestComm/camelgateway/
 To test Camel Gateway with RestComm ss7-simulator make sure you follow the below configuration changes and the execute SS7 Command's
 Assume you are using Camel GW version 3.0.0
 
-1) Download and extract restcomm-camel-3.0.0.zip form [Sonatype USSD GW Repo](https://mobicents.ci.cloudbees.com/job/RestComm-Camel-Gateway/4/artifact/release/)
+1) Download and extract restcomm-camel-3.0.0.zip form [Sonatype Camel GW Repo](https://mobicents.ci.cloudbees.com/job/RestComm-Camel-Gateway/4/artifact/release/)
  
-2) Set JBOSS_HOME to mobicents-ussd-3.0.0/jboss-5.1.0.GA
+2) Set JBOSS_HOME to restcomm-camel-3.0.0/jboss-5.1.0.GA
 
-	2.1) export JBOSS_HOME=/path/to/mobicents-ussd-3.0.0/jboss-5.1.0.GA
+	2.1) export JBOSS_HOME=/path/to/restcomm-camel-3.0.0/jboss-5.1.0.GA
 
 3) If you are deploying RestComm Camel Gateway from source code, goto release directory and execute ant release. It will create a bundle of every you need (and documents also) to run Restcomm Camel Gateway
 
