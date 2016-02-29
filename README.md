@@ -11,12 +11,12 @@ Many services can be created using CAMEL, especially, services relating to roami
  * Call Redirect Services (CRS)
  * Conditional Call Forwarding (CCF)
  * SMS
- * 
+
 RestComm Camel Gateway is built on [RestComm jSS7](https://github.com/RestComm/jss7) and RestComm JSLEE Server.
 
 ## Documentation
 
-Tt is contained in the download binary
+It is contained in the download binary
 
 ## Downloads
 
