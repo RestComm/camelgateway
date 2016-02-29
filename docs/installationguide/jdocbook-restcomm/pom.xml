@@ -58,7 +58,7 @@
 							<artifactItems>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>restcomm-camelgw-installguide-sources</artifactId>
+									<artifactId>restcomm-camelgw-installguide-sources-restcomm</artifactId>
 									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
