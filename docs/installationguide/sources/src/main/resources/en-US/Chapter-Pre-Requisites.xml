@@ -47,7 +47,7 @@
 								</row>
 								<row>
 									<entry>Java</entry>
-									<entry>You must have a working Java Run-time Environment (JRE) or Java Development Kit (JDK) installed on your system and it must be version 7 (JAVA 8 is not supported now). Oracle JDK is recommended. <literal>M3UA</literal> uses Java SCTP which is only available as of JDK 7.</entry>
+									<entry>You must have a working Java Run-time Environment (JRE) or Java Development Kit (JDK) installed on your system. The only supported version is JAVA 7. Oracle JDK is recommended. </entry>
 									<entry> </entry>	
 									
 								</row>
