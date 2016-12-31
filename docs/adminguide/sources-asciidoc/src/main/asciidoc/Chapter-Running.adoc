@@ -1,0 +1,108 @@
+= Running
+
+== Running the Gateway
+
+.Procedure: Run {this-platform} {this-application} 
+. Pre-requisite: 
++
+* You must have {this-platform} {this-application} installed as explained in the Installation Guide.
+* If you are using the SS7 board on your server, you must ensure that the `java.library.path` variable is set to point to the directory containing  the native component.
+  Alternatively you can copy it to the JBoss native library path manually. 
+
+. In order to start the Gateway, you must start the JBoss Application Server.
+  Execute the [path]_run.sh_ (Unix) or  [path]_run.bat_ (Microsoft Windows) startup script in the [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_ folder (on Unix or Windows). Note that this will start the server in the default profile.
+  The "default" profile is a clean profile, which entails configuring the entire SS7 Stack and CAMEL Gateway. 
+. Result: If the service started properly you should see the following last few output lines in the Unix terminal or Command Prompt depending on your environment: 
++
+----
+
+03:09:15,957 INFO  [SccpResourceImpl] (main) Started Sccp Resource
+03:09:15,958 INFO  [SccpStackImpl-SccpStack] (main) Starting routing engine...
+03:09:15,958 INFO  [SccpStackImpl-SccpStack] (main) Starting management ...
+03:09:15,958 INFO  [SccpStackImpl-SccpStack] (main) Starting MSU handler...
+03:09:15,982 INFO  [TCAPStackImpl] (main) Starting ...org.mobicents.protocols.ss7.tcap.TCAPProviderImpl@3e3fc7f9
+03:09:15,982 INFO  [TCAPProviderImpl] (main) Starting TCAP Provider
+03:09:15,982 INFO  [TCAPProviderImpl] (main) Registered SCCP listener with address 146
+03:09:16,215 INFO  [SS7Service] (main)  [[[[[[[[[ Restcomm Camle 3.0.0-SNAPSHOT service started ]]]]]]]]]
+03:09:16,222 INFO  [CamelPropertiesManagement] (main) Loading CAMEL Properties from /home/abhayani/workarea/mobicents/telestax/binary/CAMEL/restcomm-slee-6.1.1.GA/jboss-5.1.0.GA/server/default/data/CamelManagement_camelproperties.xml
+03:09:16,223 INFO  [CamelManagement] (main) Started CamelGatewayManagement
+03:09:16,231 INFO  [ShellServer] (main) Starting SS7 management shell environment
+03:09:16,237 INFO  [ShellServer] (main) ShellExecutor listening at /127.0.0.1:3435
+........
+........
+03:09:21,830 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed ResourceAdaptorID[name=CAPResourceAdaptor,vendor=org.mobicents,version=2.0]
+03:09:21,831 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed DeployableUnitID[url=file:/home/abhayani/workarea/mobicents/telestax/binary/CAMEL/restcomm-slee-6.1.1.GA/jboss-5.1.0.GA/server/default/deploy/mobicents-slee-ra-cap-du-2.8.0-SNAPSHOT.jar/]
+03:09:22,105 INFO  [CAPResourceAdaptor] (pool-24-thread-1) Verifying configuring CAP RA: CAPRA
+03:09:22,106 INFO  [CAPResourceAdaptor] (pool-24-thread-1) Configuring CAP RA: CAPRA
+03:09:22,106 INFO  [ResourceManagement] (pool-24-thread-1) Created Resource Adaptor Entity CAPRA for ResourceAdaptorID[name=CAPResourceAdaptor,vendor=org.mobicents,version=2.0] Config Properties: [(capJndi:java.lang.String=java:/mobicents/ss7/cap),(timeout:java.lang.Integer=0)]
+03:09:22,356 INFO  [ResourceManagement] (pool-24-thread-1) Activated RA Entity CAPRA
+03:09:22,607 INFO  [ResourceManagement] (pool-24-thread-1) Bound link between RA Entity CAPRA and Name CAPRA
+03:09:22,858 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installing DeployableUnitID[url=file:/home/abhayani/workarea/mobicents/telestax/binary/CAMEL/restcomm-slee-6.1.1.GA/jboss-5.1.0.GA/server/default/deploy/services-DU-3.0.0-SNAPSHOT.jar/]
+03:09:23,048 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed LibraryID[name=library-camelgateway,vendor=org.mobicents,version=2.0]
+03:09:23,079 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed SbbID[name=CamelGatewaySbb,vendor=org.mobicents,version=1.0]
+03:09:23,094 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed ServiceID[name=mobicents-camelgateway,vendor=org.mobicents,version=1.0]. Root sbb is SbbID[name=CamelGatewaySbb,vendor=org.mobicents,version=1.0]
+03:09:23,095 INFO  [DeploymentMBeanImpl] (pool-24-thread-1) Installed DeployableUnitID[url=file:/home/abhayani/workarea/mobicents/telestax/binary/CAMEL/restcomm-slee-6.1.1.GA/jboss-5.1.0.GA/server/default/deploy/services-DU-3.0.0-SNAPSHOT.jar/]
+03:09:23,352 INFO  [ServiceManagementImpl] (pool-24-thread-1) Activated ServiceID[name=mobicents-camelgateway,vendor=org.mobicents,version=1.0]
+03:09:23,605 INFO  [MobicentsCache] (main) Starting JBoss Cache...
+03:09:23,631 INFO  [ComponentRegistry] (main) JBoss Cache version: JBossCache 'Cascabel' 3.1.0.GA
+03:09:23,631 INFO  [MobicentsCache] (main) Mobicents Cache started, status: STARTED, Mode: LOCAL
+03:09:23,648 INFO  [SleeManagementMBean] (main)  ## ## ## ## ## ## ## Restcomm JAIN SLEE 3.0.0-SNAPSHOT "Adam" started ## ## ## ## ## ## ##
+03:09:23,762 INFO  [HttpClientResourceAdaptor] (main) HttpClientResourceAdaptor=HttpClientResourceAdaptor entity activated.
+03:09:23,766 INFO  [CAPResourceAdaptor] (main) Successfully connected to CAP service[java:/mobicents/ss7/cap]
+03:09:24,873 INFO  [Http11Protocol] (main) Starting Coyote HTTP/1.1 on http-127.0.0.1-8080
+03:09:24,887 INFO  [AjpProtocol] (main) Starting Coyote AJP/1.3 on ajp-127.0.0.1-8009
+03:09:24,893 INFO  [ServerImpl] (main) JBoss (Microcontainer) [5.1.0.GA (build: SVNTag=JBoss_5_1_0_GA date=200905221634)] Started in 58s:831ms
+----		 
+
+. You need to use the Shell Client to connect to {this-application-dirname} {this-version}  and configure the SS7 Stack and CAMEL Gateway routing rule.
+
+NOTE: If you are starting {this-application-dirname} {this-version} for the first time, you must configure SS7.
+
+Once configured, the state, the configuration of SS7 and CAMEL is persisted.
+This means that your configuration will still be available even after restarting the server.
+The next chapter will provide more details about configuring SS7 and the CAMEL Gateway.
+
+
+.Procedure: Stop the Gateway
+. To stop the {this-platform} {this-application} , you must shut down the JBoss Application Server.
+  To shut down the server(s) you must execute the `shutdown.sh -s` (Unix) or  `shutdown.bat -s` (Microsoft Windows) script in the [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_					directory (on Unix or Windows).
+. If the server stopped properly, you will see the following three lines as the  last output in the Unix terminal or Command Prompt: 
+----
+[Server] Shutdown complete
+Halting VM
+----
+
+[[_running_the_gateway_simulator]]
+== Running the Gateway - Simulator Profile
+
+The {this-platform} {this-application} offers you an option to run the Gateway with a "simulator" profile for testing purpose.
+The "simulator" profile is a pre-configured profile to work with the jss7-simulator.
+Starting the Gateway with the "simulator" profile is  similar to the steps explained for the "default" profile except that you must pass the string value "simulator" to the -c command line option when invoking the run script.
+ 
+----
+
+[bin]$ ./run.sh -c simulator
+----
+
+
+[[_running_shell]]
+== Running the Shell
+
+Before you execute commands to configure the Gateway, you must start the Shell client and connect to the managed instance.
+The shell terminal can be started by issuing the following command from [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_ directory: 
+
+[source]
+----
+[$] ./ss7-cli.sh
+----
+
+Once console starts, it will print the following information and await further commands:
+
+----
+
+version=2.0.0-SNAPSHOT,name=restcomm CLI,prefix=mobicents,vendor=TeleStax
+restcomm>
+----
+
+Executing further commands requires that you connect to a managed instance.
+For more details on connecting to an instance; for a list of all supported commands  and details on configuring the SS7 stack, refer to the Restcomm SS7 Stack User Guide. 

@@ -1,0 +1,25 @@
+
+[[_supported_cap_operations]]
+= CAP Operations Supported
+
+As of now, the Gateway supports the following protocols for proxy: 
+
+CAMEL phase 1 (full support except of activityTest operation)::
+
+
+* initialDP 
+* connect 
+* releaseCall 
+* requestReportBCSMEvent 
+* eventReportBCSM 
+* continue 				
+
+CAMEL phase 2 (partial support)::
+
+
+* connectToResource 
+* furnishChargingInformation 
+* applyCharging 
+* applyChargingReport 
+* promptAndCollectUserInformation 
+* cancel  				
