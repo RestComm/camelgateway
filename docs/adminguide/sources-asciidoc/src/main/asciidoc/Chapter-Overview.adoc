@@ -74,7 +74,7 @@ Open Source:::
   Additionally, there is an active community providing product support. 
 
 SS7 Hardware Cards:::
-  {this-platform} {this-application} can be used with Restcomm SS7 boards or Intel family boards (Dialogic SS7 cards) or Zaptel/Dahdi compatible TDM devices (Digium, Sangoma). 
+  {this-platform} {this-application} can be used with {this-platform} SS7 boards or Intel family boards (Dialogic SS7 cards) or Zaptel/Dahdi compatible TDM devices (Digium, Sangoma). 
 
 SIGTRAN (M3UA):::
   It also has in-built support for SIGTRAN (M3UA using SCTP). 
@@ -95,8 +95,7 @@ The only restricting factor is memory + CPU capacity of the host servers, third-
   * {this-platform} {this-application} SCCP can be configured to have virtually unlimited Global Title Translation rules and also supports wild characters for partial matching of Global Title digits.        
 
 HTTP Transfer Mechanism:::
-The {this-platform} USSD Gateway makes use of HTTP protocol between the gateway and the third-party applications (or Value Added Service Modules). {this-platform} USSD Gateway receives the USSD request from the subscriber's handset/device via the GSM Signaling network and then translates these requests to HTTP depending on the rules configured in the Gateway.
-These rules can direct the subscriber to corresponding Value Added Service (VAS) or third-party application. The HTTP callback mechanism allows the third-party application to operate independently of the underlying Operating System, Programming Language and Framework.
+The {this-platform} {this-application} makes use of HTTP protocol between the gateway and the third-party applications. {this-platform} {this-application} receives CAMEL request from the GSM Signaling network and then translates these requests to HTTP.
 The third-party application can be either of the following technologies on any Operating System: 
 
 * Apache Tomcat, JBoss AS, Oracle Application Server, IBM Websphere etc for JSP/Servlet on Java 

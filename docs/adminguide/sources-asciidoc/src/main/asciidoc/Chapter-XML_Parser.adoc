@@ -1,94 +1,57 @@
 [[_xml_parser]]
 = XML Parser API
 
-{this-platform} {this-application} exposes easy to use Java framework to serialize and deserialize the CAP messages.
-If you are using Java Servlets for your business logic, this framework will make it very easy to compose your business logic.
-However, using this framework is not mandatory and you are free to create your own XML parser. 
+{this-platform} {this-application} exposes easy to use Java framework to serialize and deserialize the CAP messages. If you are using Java Servlets for your business logic, this framework will make it very easy to compose your business logic. However, using this framework is not mandatory and you are free to create your own XML parser.
 
 [[_mvn_dependency]]
 == Maven dependency
 
 If you are using maven to build your project, define following dependencies to use XML Framework in your project 
 
-[source,xml]
+[source,xml,subs="verbatim,attributes"]
 ----
-
 		<dependency>
 			<groupId>org.restcomm.camelgw</groupId>
 			<artifactId>xml</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
+			<version>{project-version}</version>
 		</dependency>
 ----
 
 .Note
 [NOTE]
 ====
-Restcomm maintains the archieve in private repository.
-please add the following in your pom's repositories tag 
+Telestax maintains the archieve in sonatype repository. Please add the following in your pom's repositories tag 
 
 [source,xml]
 ----
 
 		<repository>
-		  <id>restcomm-releases-repository</id>
-		  <name>Restcomm Releases Repository</name>
-		  <url>http://telestax.artifactoryonline.com/telestax/releases</url>
-		  <releases>
-		    <enabled>true</enabled>
-		    <updatePolicy>never</updatePolicy>
-		  </releases>
-		  <snapshots>
-		    <enabled>false</enabled>
-		    <updatePolicy>never</updatePolicy>
-		  </snapshots>		  		  
-		</repository>
-		<repository>
-		  <id>restcomm-snapshots-repository</id>
-		  <name>Restcomm Snapshots Repository</name>
-		  <url>http://telestax.artifactoryonline.com/telestax/snapshots</url>
-		  <releases>
-		    <enabled>false</enabled>
-		    <updatePolicy>never</updatePolicy>
-		  </releases>
-		  <snapshots>
-		    <enabled>true</enabled>
-		    <updatePolicy>never</updatePolicy>
-		  </snapshots>		  		  
+			<id>mobicents-public-repository-group</id>
+			<name>Mobicens Public Maven Repository Group</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
 		</repository>
 ----
 ====
 
-.Important
-[IMPORTANT]
-====
-Restcomm Releases and Snapshots Repository are password protected.
-Ask support to get your password.
 
-Once you have user name and password add following to your servers definition in your maven settings located in M2_HOME/conf/settings.xml
-
-[source,xml]
-----
-
- 	<server>
-      <id>restcomm-releases-repository</id>
-      <username>xxx</username>
-      <password>xxx</password>
-    </server>
-    <server>
-      <id>restcomm-snapshots-repository</id>
-      <username>xxx</username>
-      <password>xxx</password>
-    </server>
-----
-====
 
 [[_simple_tree_based_example]]
 == Simple example 
 
-Below is the simple [class]`HttpServlet` example that received INITIAL_DP_REQUEST and responds CONTINUE_REQUEST The flow of message is same as shown in  <<_http_message_flow,{this-platform}  HTTP message flow>>		
+Below is the simple [class]`HttpServlet` example that received INITIAL_DP_REQUEST and responds CONTINUE_REQUEST The flow of message is same as shown in  <<_http_messages>>.
 
 [source,java]
 ----
+package org.restcomm.applications.camelgw.examples.http;
 
 public class TestServlet extends HttpServlet {
 
@@ -110,8 +73,8 @@ public class TestServlet extends HttpServlet {
 		SccpAddress orgAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 1, 8);
 		SccpAddress dstAddress = new SccpAddressImpl(RoutingIndicator.ROUTING_BASED_ON_DPC_AND_SSN, null, 2, 8);
 
-		XmlCAPDialog copy = new XmlCAPDialog(CAPApplicationContext.CapV1_gsmSSF_to_gsmSCF, orgAddress,
-			dstAddress, 12l, 13l);
+		XmlCAPDialog copy = new XmlCAPDialog(CAPApplicationContext.CapV1_gsmSSF_to_gsmSCF, orgAddress, dstAddress, 12l,
+				13l);
 
 		try {
 			byte[] data = factory.serialize(copy);
@@ -136,8 +99,7 @@ public class TestServlet extends HttpServlet {
 
 			FastList<CAPMessage> capMessages = original.getCAPMessages();
 
-			for (FastList.Node<CAPMessage> n = capMessages.head(), end = capMessages.tail();
-			     (n = n.getNext()) != end;) {
+			for (FastList.Node<CAPMessage> n = capMessages.head(), end = capMessages.tail(); (n = n.getNext()) != end;) {
 
 				CAPMessage capMessage = n.getValue();
 				switch (capMessage.getMessageType()) {
@@ -146,8 +108,7 @@ public class TestServlet extends HttpServlet {
 					this.handleIdp(original, initialDPRequest);
 					break;
 				case applyChargingReport_Request:
-					ApplyChargingReportRequestImpl applyChargingReportRequest =
-					  (ApplyChargingReportRequestImpl) capMessage;
+					ApplyChargingReportRequestImpl applyChargingReportRequest = (ApplyChargingReportRequestImpl) capMessage;
 					logger.info(String.format("Received applyChargingReportRequest=%s", applyChargingReportRequest));
 					break;
 				case eventReportBCSM_Request:
@@ -207,6 +168,7 @@ This section provides the details for [class]`EventsSerializeFactory`
 
 [source,java]
 ----
+package org.restcomm.camelgateway;
 
 public class EventsSerializeFactory {
 
@@ -218,16 +180,11 @@ public class EventsSerializeFactory {
 
 	public EventsSerializeFactory() {
         // CAPErrorMessage classes
-        binding.setAlias(CAPErrorMessageCancelFailedImpl.class,
-        	ErrorComponentCap.CAP_ERROR_MESSAGE_CANCEL_FAILED);
-        binding.setAlias(CAPErrorMessageParameterlessImpl.class,
-        	ErrorComponentCap.CAP_ERROR_MESSAGE_PARAMETERLESS);
-        binding.setAlias(CAPErrorMessageRequestedInfoErrorImpl.class,
-        	ErrorComponentCap.CAP_ERROR_MESSAGE_REQUESTED_INFO_ERROR);
-        binding.setAlias(CAPErrorMessageSystemFailureImpl.class,
-        	ErrorComponentCap.CAP_ERROR_MESSAGE_SYSTEM_FAILURE);
-        binding.setAlias(CAPErrorMessageTaskRefusedImpl.class,
-        	ErrorComponentCap.CAP_ERROR_MESSAGE_TASK_REFUSED);
+        binding.setAlias(CAPErrorMessageCancelFailedImpl.class, ErrorComponentCap.CAP_ERROR_MESSAGE_CANCEL_FAILED);
+        binding.setAlias(CAPErrorMessageParameterlessImpl.class, ErrorComponentCap.CAP_ERROR_MESSAGE_PARAMETERLESS);
+        binding.setAlias(CAPErrorMessageRequestedInfoErrorImpl.class, ErrorComponentCap.CAP_ERROR_MESSAGE_REQUESTED_INFO_ERROR);
+        binding.setAlias(CAPErrorMessageSystemFailureImpl.class, ErrorComponentCap.CAP_ERROR_MESSAGE_SYSTEM_FAILURE);
+        binding.setAlias(CAPErrorMessageTaskRefusedImpl.class, ErrorComponentCap.CAP_ERROR_MESSAGE_TASK_REFUSED);
 
 		//SCCP Gt classes
 		binding.setAlias(GlobalTitle0001Impl.class, GlobalTitle0001.class.getSimpleName());
@@ -320,6 +277,7 @@ This section provides the details for [class]`XmlCAPDialog`
 
 [source,java]
 ----
+package org.restcomm.camelgateway;
 
 public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDialog, XMLSerializable {
 
@@ -394,8 +352,8 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
 	/**
 	 * 
 	 */
-	public XmlCAPDialog(CAPApplicationContext appCntx, SccpAddress origAddress, SccpAddress destAddress,
-			Long localId, Long remoteId) {
+	public XmlCAPDialog(CAPApplicationContext appCntx, SccpAddress origAddress, SccpAddress destAddress, Long localId,
+			Long remoteId) {
 		this.appCntx = appCntx;
 		this.origAddress = origAddress;
 		this.destAddress = destAddress;
@@ -1043,8 +1001,7 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
                 xml.add(dialog.rejectComponents, REJECT_COMPONENTS, RejectComponentCap.class);
 
             if (dialog.capMessages.size() > 0) {
-                for (FastList.Node<CAPMessage> n = dialog.capMessages.head(), end = dialog.capMessages.tail();
-                	(n = n.getNext()) != end;) {
+                for (FastList.Node<CAPMessage> n = dialog.capMessages.head(), end = dialog.capMessages.tail(); (n = n.getNext()) != end;) {
 
                     CAPMessage capMessage = n.getValue();
 
@@ -1054,13 +1011,12 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
                                     InitialDPRequestImpl.class);
                             break;
                         case applyCharging_Request:
-                            xml.add((ApplyChargingRequestImpl) capMessage,
-                            	CAPMessageType.applyCharging_Request.name(), ApplyChargingRequestImpl.class);
+                            xml.add((ApplyChargingRequestImpl) capMessage, CAPMessageType.applyCharging_Request.name(),
+                                    ApplyChargingRequestImpl.class);
                             break;
                         case applyChargingReport_Request:
                             xml.add((ApplyChargingReportRequestImpl) capMessage,
-                                    CAPMessageType.applyChargingReport_Request.name(),
-                                    ApplyChargingReportRequestImpl.class);
+                                    CAPMessageType.applyChargingReport_Request.name(), ApplyChargingReportRequestImpl.class);
                             break;
                         case cancel_Request:
                             xml.add((CancelRequestImpl) capMessage, CAPMessageType.cancel_Request.name(),
@@ -1075,13 +1031,11 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
                                     ContinueRequestImpl.class);
                             break;
                         case eventReportBCSM_Request:
-                            xml.add((EventReportBCSMRequestImpl) capMessage,
-                            		CAPMessageType.eventReportBCSM_Request.name(),
+                            xml.add((EventReportBCSMRequestImpl) capMessage, CAPMessageType.eventReportBCSM_Request.name(),
                                     EventReportBCSMRequestImpl.class);
                             break;
                         case releaseCall_Request:
-                            xml.add((ReleaseCallRequestImpl) capMessage,
-                            		CAPMessageType.releaseCall_Request.name(),
+                            xml.add((ReleaseCallRequestImpl) capMessage, CAPMessageType.releaseCall_Request.name(),
                                     ReleaseCallRequestImpl.class);
                             break;
                         case requestReportBCSMEvent_Request:
@@ -1153,8 +1107,7 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
 
             String capUsrAbrtReaStr = xml.getAttribute(CAP_USER_ABORT_REASON, null);
             if (capUsrAbrtReaStr != null) {
-                dialog.capUserAbortReason = CAPUserAbortReason.valueOf(CAPUserAbortReason.class,
-                	capUsrAbrtReaStr);
+                dialog.capUserAbortReason = CAPUserAbortReason.valueOf(CAPUserAbortReason.class, capUsrAbrtReaStr);
             }
             String pAbortCauseTypeStr = xml.getAttribute(P_ABORT_CAUSE_TYPE, null);
             if (pAbortCauseTypeStr != null) {
@@ -1188,12 +1141,10 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
 
 			for (int count = 0; count < capMssgsSize; count++) {
 
-				CAPMessage capMessage = xml.get(CAPMessageType.initialDP_Request.name(),
-					InitialDPRequestImpl.class);
+				CAPMessage capMessage = xml.get(CAPMessageType.initialDP_Request.name(), InitialDPRequestImpl.class);
 
 				if (capMessage == null) {
-					capMessage = xml.get(CAPMessageType.applyCharging_Request.name(),
-						ApplyChargingRequestImpl.class);
+					capMessage = xml.get(CAPMessageType.applyCharging_Request.name(), ApplyChargingRequestImpl.class);
 				}
 
 				if (capMessage == null) {
@@ -1219,8 +1170,7 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
 				}
 
 				if (capMessage == null) {
-					capMessage = xml.get(CAPMessageType.releaseCall_Request.name(),
-						ReleaseCallRequestImpl.class);
+					capMessage = xml.get(CAPMessageType.releaseCall_Request.name(), ReleaseCallRequestImpl.class);
 				}
 
                 if (capMessage == null) {
@@ -1229,26 +1179,21 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
                 }
 
                 if (capMessage == null) {
-                    capMessage = xml.get(CAPMessageType.connectToResource_Request.name(),
-                    	ConnectToResourceRequestImpl.class);
+                    capMessage = xml.get(CAPMessageType.connectToResource_Request.name(), ConnectToResourceRequestImpl.class);
                 }
                 if (capMessage == null) {
-                    capMessage = xml.get(CAPMessageType.furnishChargingInformation_Request.name(),
-                    	FurnishChargingInformationRequestImpl.class);
+                    capMessage = xml.get(CAPMessageType.furnishChargingInformation_Request.name(), FurnishChargingInformationRequestImpl.class);
                 }
                 if (capMessage == null) {
-                    capMessage = xml.get(CAPMessageType.promptAndCollectUserInformation_Request.name(),
-                    	PromptAndCollectUserInformationRequestImpl.class);
+                    capMessage = xml.get(CAPMessageType.promptAndCollectUserInformation_Request.name(), PromptAndCollectUserInformationRequestImpl.class);
                 }
                 if (capMessage == null) {
-                    capMessage = xml.get(CAPMessageType.promptAndCollectUserInformation_Response.name(),
-                    	PromptAndCollectUserInformationResponseImpl.class);
+                    capMessage = xml.get(CAPMessageType.promptAndCollectUserInformation_Response.name(), PromptAndCollectUserInformationResponseImpl.class);
                 }
 
 				dialog.addCAPMessage(capMessage);
 			}
 		}
 	};
-
 }
 ----

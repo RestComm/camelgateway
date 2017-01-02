@@ -119,7 +119,7 @@ Possible values are.
 * `CAP V4: CapV4_gsmSSF_scfGeneric, CapV4_gsmSSF_scfAssistHandoff, CapV4_scf_gsmSSFGeneric, CapV4_gsmSRF_gsmSCF, CapV4_cap4_sms`					
 
 networkId::
-  `netwrokId` is used for multi-tenancy support. &THIS.PLATFORM; {this-application}  can connect to multiple operators each differentiated by a `networkId`.
+  `netwrokId` is used for multi-tenancy support. {this-platform} {this-application}  can connect to multiple operators each differentiated by a `networkId`.
   The default value is 0.
   When a message reaches the Gateway, the SCCP Stack assigns a networkId.
   (For more details, please refer to the jSS7 Stack User Guide). The Gateway can route messages to different applications depending on the configured networkId routing rule. 

@@ -8,7 +8,7 @@ Multi tenancy allows a single instance of {this-platform} {this-application} to 
 Each logical network has a corresponding digital key called `"networkId"` with a default value of 0 (unless specified differently). For every `"networkId"`, you can specify a corresponding HTTP Application to separate the business logic for each network.
  
 
-NOTE: If you would like to get more details about setting up Multi tenancy at jSS7, please refer to the Restcomm jSS7 Admin Guide. 
+NOTE: If you would like to get more details about setting up Multi tenancy at jSS7, please refer to the {this-platform} jSS7 Admin Guide. 
 
 The diagram below depicts the high level design for Multi tenancy support in {this-platform} {this-application} . 
 

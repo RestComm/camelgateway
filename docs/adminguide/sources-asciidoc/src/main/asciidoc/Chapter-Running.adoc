@@ -6,11 +6,9 @@
 . Pre-requisite: 
 +
 * You must have {this-platform} {this-application} installed as explained in the Installation Guide.
-* If you are using the SS7 board on your server, you must ensure that the `java.library.path` variable is set to point to the directory containing  the native component.
-  Alternatively you can copy it to the JBoss native library path manually. 
 
 . In order to start the Gateway, you must start the JBoss Application Server.
-  Execute the [path]_run.sh_ (Unix) or  [path]_run.bat_ (Microsoft Windows) startup script in the [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_ folder (on Unix or Windows). Note that this will start the server in the default profile.
+  Execute the [path]_run.sh_ (Unix) or  [path]_run.bat_ (Microsoft Windows) startup script in the [path]_{this-folder}-camel-{project-version}/jboss-5.1.0.GA/bin_ folder (on Unix or Windows). Note that this will start the server in the default profile.
   The "default" profile is a clean profile, which entails configuring the entire SS7 Stack and CAMEL Gateway. 
 . Result: If the service started properly you should see the following last few output lines in the Unix terminal or Command Prompt depending on your environment: 
 +
@@ -23,7 +21,7 @@
 03:09:15,982 INFO  [TCAPStackImpl] (main) Starting ...org.mobicents.protocols.ss7.tcap.TCAPProviderImpl@3e3fc7f9
 03:09:15,982 INFO  [TCAPProviderImpl] (main) Starting TCAP Provider
 03:09:15,982 INFO  [TCAPProviderImpl] (main) Registered SCCP listener with address 146
-03:09:16,215 INFO  [SS7Service] (main)  [[[[[[[[[ Restcomm Camle 3.0.0-SNAPSHOT service started ]]]]]]]]]
+03:09:16,215 INFO  [SS7Service] (main)  [[[[[[[[[ Restcomm Camel 3.0.0-SNAPSHOT service started ]]]]]]]]]
 03:09:16,222 INFO  [CamelPropertiesManagement] (main) Loading CAMEL Properties from /home/abhayani/workarea/mobicents/telestax/binary/CAMEL/restcomm-slee-6.1.1.GA/jboss-5.1.0.GA/server/default/data/CamelManagement_camelproperties.xml
 03:09:16,223 INFO  [CamelManagement] (main) Started CamelGatewayManagement
 03:09:16,231 INFO  [ShellServer] (main) Starting SS7 management shell environment
@@ -54,9 +52,9 @@
 03:09:24,893 INFO  [ServerImpl] (main) JBoss (Microcontainer) [5.1.0.GA (build: SVNTag=JBoss_5_1_0_GA date=200905221634)] Started in 58s:831ms
 ----		 
 
-. You need to use the Shell Client to connect to {this-application-dirname} {this-version}  and configure the SS7 Stack and CAMEL Gateway routing rule.
+. You need to use the Shell Client to connect to {this-platform} {this-application}  and configure the SS7 Stack and CAMEL Gateway routing rule.
 
-NOTE: If you are starting {this-application-dirname} {this-version} for the first time, you must configure SS7.
+NOTE: If you are starting {this-platform} {this-application} for the first time, you must configure SS7.
 
 Once configured, the state, the configuration of SS7 and CAMEL is persisted.
 This means that your configuration will still be available even after restarting the server.
@@ -65,7 +63,7 @@ The next chapter will provide more details about configuring SS7 and the CAMEL G
 
 .Procedure: Stop the Gateway
 . To stop the {this-platform} {this-application} , you must shut down the JBoss Application Server.
-  To shut down the server(s) you must execute the `shutdown.sh -s` (Unix) or  `shutdown.bat -s` (Microsoft Windows) script in the [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_					directory (on Unix or Windows).
+  To shut down the server(s) you must execute the `shutdown.sh -s` (Unix) or  `shutdown.bat -s` (Microsoft Windows) script in the [path]_{this-folder}-camel-{project-version}/jboss-5.1.0.GA/bin_ directory (on Unix or Windows).
 . If the server stopped properly, you will see the following three lines as the  last output in the Unix terminal or Command Prompt: 
 ----
 [Server] Shutdown complete
@@ -89,7 +87,7 @@ Starting the Gateway with the "simulator" profile is  similar to the steps expla
 == Running the Shell
 
 Before you execute commands to configure the Gateway, you must start the Shell client and connect to the managed instance.
-The shell terminal can be started by issuing the following command from [path]_restcomm-camelgw-6.1.1.GA/jboss-5.1.0.GA/bin_ directory: 
+The shell terminal can be started by issuing the following command from [path]_{this-folder}-camel-{project-version}/jboss-5.1.0.GA/bin_ directory: 
 
 [source]
 ----
@@ -105,4 +103,4 @@ restcomm>
 ----
 
 Executing further commands requires that you connect to a managed instance.
-For more details on connecting to an instance; for a list of all supported commands  and details on configuring the SS7 stack, refer to the Restcomm SS7 Stack User Guide. 
+For more details on connecting to an instance; for a list of all supported commands  and details on configuring the SS7 stack, refer to the {this-platform} SS7 Stack User Guide. 

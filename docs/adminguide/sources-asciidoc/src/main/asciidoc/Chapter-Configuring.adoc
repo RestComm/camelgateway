@@ -7,9 +7,9 @@ This chapter will help you configure the {this-platform} {this-application} .
 == Configuring the SS7 Stack
 
 You must configure the SS7 stack prior to configuring CAMEL Gateway.
-For details on configuring the SS7 Stack please refer to the Restcomm SS7 Stack User Guide.
+For details on configuring the SS7 Stack please refer to the {this-platform} SS7 Stack User Guide.
 You must first start the Shell as explained in the previous chapter and connect to the managed instance prior to configuring the Stack.
-The Restcomm SS7 Stack User Guide lists all available Shell commands to configure SS7.
+The {this-platform} SS7 Stack User Guide lists all available Shell commands to configure SS7.
 In addition, help files are available all the commands provided. 
 
 [[_setting_camel_routing_rules]]
@@ -75,6 +75,7 @@ DESCRIPTION::
 	This command is used to create a new routing rule for a network id.
 
 EXAMPLES::
+
 ----
 	camel networkrule create 0 http://localhost:8080/camel
 ----
@@ -101,6 +102,7 @@ DESCRIPTION::
 	This command is used to delete an existing routing rule for a network id.
 
 EXAMPLES::
+
 ----
 	camel networkrule delete 0
 ----	

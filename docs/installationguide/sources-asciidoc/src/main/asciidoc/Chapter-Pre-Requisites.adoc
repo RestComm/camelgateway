@@ -12,10 +12,11 @@ The following table details the Hardware, Operating System and Software requirem
 | Notes
 
 | System Requirements | Intel Pentium 1 GHz or faster for simple applications. Hard disk space of at least 20MB. RAM of at least 1.5 GB | The higher the amount of RAM and processing power, the better the throughput that can be achieved
-| TDM Hardware | For legacy SS7 links, you must have dahdi or dialogic cards installed along with their native libraries. | 
+| TDM Hardware (Optional) | {this-platform} {this-application} supports legacy E1/T1 links via SS7 cards. You must have dahdi or dialogic cards installed along with their native libraries. {this-platform} {this-application} also supports SIGTRAN (M3UA). | In case if you are connecting to core network via SIGTRAN, TDM hardware is not needed.
 | Operating System | The platform can be installed on any OS that supports Java and SCTP. But native libraries for SS7 cards are compiled only for Linux at the moment and therefore supported only on Linux Operating System. | The libraries will be compiled for Windows in future releases.
-| Java | You must have a working Java Run-time Environment (JRE) or Java Development Kit (JDK) installed on your system. The only supported version is JAVA 7. Oracle JDK is recommended. | 
+| Java | You must have a working Java Runtime Environment (JRE) or Java Development Kit (JDK) installed on your system and it must be version 7. JDK from Oracle is preferred. |
 | SCTP libraries | If you intend to use SIGTRAN (M3UA), you must have the lksctp library installed. The Linux Kernel Stream Control Transmission Protocol (lksctp) library provides SCTP implementation. | For more details on downloading and installing lksctp, please refer to http://lksctp.sourceforge.net/
+| Firewall Access | You must ensure that you have appropriate firewall permissions to allow access to IP:8080. This is required to access the management consoles.
 |===
 
 
