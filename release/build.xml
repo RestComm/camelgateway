@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <project name="restcomm.camelgw.release" default="release-with-jss7-and-ras" basedir=".">
 	<property environment="sys"/>
-    <property name="release.dir" location="${ant.file.restcomm.camelgw.release}/../target" />
+	<property name="release.dir" location="${ant.file.restcomm.camelgw.release}/../target" />
 	<property name="base.dir" location="${ant.file.restcomm.camelgw.release}/.." />
 	<property name="docs.dir" location="${release.dir}/docs" />
 	<property name="bundle.docs.dir" location="${base.dir}/docs-bundle" />
 	<property name="checkout.dir" value="${base.dir}/checkout" />
 	<property name="checkout.restcomm-slee.dir" value="${checkout.dir}/restcomm-slee" />
 	<property name="checkout.restcomm-jss7.dir" value="${checkout.dir}/restcomm-jss7" />
+	<property name="checkout.restcomm-jss7-ra.dir" value="${checkout.dir}/restcomm-jss7-ra" />
+	<property name="checkout.restcomm-cap-ra.dir" value="${checkout.dir}/restcomm-cap-ra" />
 	<property name="checkout.restcomm-camel.dir" value="${base.dir}/.." />
 	<property name="checkout.restcomm-slee.jss7-build.dir" value="${checkout.dir}/restcomm-slee.jss7-build" />
 	<property name="checkout.restcomm-slee.http-build.dir" value="${checkout.dir}/restcomm-slee.http-build" />
@@ -18,31 +20,44 @@
 			ant -Drestcomm.camel.git.tag=ts115ga -Drestcomm.camel.release.version=6.1.5.GA-RestComm
 		-->
 	<property name="restcomm.camel.git.tag" value="master"/>
-	<property name="restcomm.camel.release.version" value="3.0.0-SNAPSHOT"/>
+	<property name="restcomm.camel.release.version" value="7.0.0-SNAPSHOT"/>
 	<!-- **//-->
 
-	<property name="restcomm-slee.version" value="2.8.36" />
-	<property name="restcomm-slee.build-number" value="73" />
+	<property name="github.url" value="https://github.com/RestComm" />
 
-	<property name="restcomm-jss7.build-number" value="1336" />
-	<property name="restcomm-jss7.version" value="3.0.${restcomm-jss7.build-number}" />
-	<property name="restcomm-jss7.timestamp" value="1602171452" />	
+	<property name="restcomm-slee.build-number" value="36.73" />
+	<property name="restcomm-slee.version" value="2.8" />
+	<property name="restcomm-slee.release" value="2.8.0.FINAL" />
+
+	<property name="restcomm-jss7.build-number" value="1385" />
+	<property name="restcomm-jss7.version" value="7.1.${restcomm-jss7.build-number}" />
+	<property name="restcomm-jss7.release" value="7.1.${restcomm-jss7.build-number}" />
+
+	<property name="restcomm-cap-ra.build-number" value="57" />
+	<property name="restcomm-cap-ra.version" value="7.1.${restcomm-cap-ra.build-number}" />
+	<property name="restcomm-cap-ra.release" value="7.1.${restcomm-cap-ra.build-number}" />
 
 	<property name="restcomm-slee.ss7.tag" value="2.8.26" />
 
-	<property name="restcomm-slee.http.ra.tag" value="2.8.5" />
+	<property name="restcomm-slee.http.ra.tag" value="2.8.14" />
 	<property name="restcomm-slee.http.ra.version" value="${restcomm-slee.http.ra.tag}" />
 
 	<!--GET RestComm-Slee & RestComm-jss7 - properties-->
 	<property name="cloudbees.url" value="https://restcomm.ci.cloudbees.com" />
-	<property name="restcomm-slee.download.distro.name" value="restcomm-slee-${restcomm-slee.version}" />
-	<property name="restcomm-slee.download.distro.file" value="${restcomm-slee.download.distro.name}.${restcomm-slee.build-number}.zip" />
-	<property name="restcomm-slee.download.url" value="${cloudbees.url}/job/Restcomm-JAIN-SLEE-Release/${restcomm-slee.build-number}/artifact/release/${restcomm-slee.download.distro.file}" />
+	<property name="restcomm-slee.download.distro.name" value="restcomm-slee-${restcomm-slee.version}.${restcomm-slee.build-number}" />
+	<property name="restcomm-slee.download.distro.file" value="${restcomm-slee.download.distro.name}.zip" />
+	<property name="restcomm-slee.download.url" value="${github.url}/jain-slee/releases/download/${restcomm-slee.release}/${restcomm-slee.download.distro.file}" />
 	<property name="restcomm-slee.distro.zip.path" value="${checkout.dir}/${restcomm-slee.download.distro.file}" />
-
-	<property name="restcomm-jss7.download.distro.file" value="restcomm-jss7-${restcomm-jss7.version}-${restcomm-jss7.timestamp}.zip" />
-	<property name="restcomm-jss7.download.url" value="${cloudbees.url}/job/Restcomm-jSS7/${restcomm-jss7.build-number}/artifact/release/${restcomm-jss7.download.distro.file}" />
+	<property name="restcomm-slee.distro.zip.path" value="${checkout.dir}/${restcomm-slee.download.distro.file}" />
+	<property name="restcomm-jss7.download.distro.file" value="restcomm-jss7-${restcomm-jss7.version}.zip" />
+	<property name="restcomm-jss7.download.url" value="${github.url}/jss7/releases/download/${restcomm-jss7.release}/${restcomm-jss7.download.distro.file}" />
 	<property name="restcomm-jss7.distro.zip.path" value="${checkout.dir}/${restcomm-jss7.download.distro.file}" />
+	<property name="restcomm-cap-ra.download.jar.file" value="restcomm-slee-ra-cap-du-${restcomm-cap-ra.version}.jar" />
+	<property name="restcomm-cap-ra.download.docs.file" value="RA_docs.zip" />
+	<property name="restcomm-cap-ra.download.jar.url" value="${github.url}/jain-slee.ss7/releases/download/${restcomm-cap-ra.release}/${restcomm-cap-ra.download.jar.file}" />
+	<property name="restcomm-cap-ra.download.docs.url" value="${github.url}/jain-slee.ss7/releases/download/${restcomm-cap-ra.release}/${restcomm-cap-ra.download.docs.file}" />
+	<property name="restcomm-cap-ra.distro.jar.path" value="${checkout.dir}/${restcomm-cap-ra.download.jar.file}" />
+	<property name="restcomm-cap-ra.distro.docs.path" value="${checkout.dir}/${restcomm-cap-ra.download.docs.file}" />
 
 
 	<property name="release.build.goals" value="clean install dependency:tree"/>
@@ -63,6 +78,12 @@
 	<target name="clean">
 		<delete dir="${release.dir}"/>
 		<delete dir="${base.dir}/checkout"/>
+		<delete dir="${base.dir}/docs-bundle"/>
+		<delete>
+			<fileset dir="${base.dir}">
+				<include name="restcomm-camel-*.*" />
+			</fileset>
+		</delete>
 	</target>
 
 
@@ -124,14 +145,16 @@
 
 	<!--GET Map & RestComm-Slee & RestComm-jss7 - downloads-->
 
-	<target name="get-deps" depends="get-restcomm-slee,get-restcomm-jss7" />
-	<target name="extract-deps" depends="extract-restcomm-slee,extract-restcomm-jss7" />
+	<target name="get-deps" depends="get-restcomm-slee,get-restcomm-jss7,get-restcomm-cap-ra,get-restcomm-cap-ra-docs" />
+	<target name="extract-deps" depends="extract-restcomm-slee,extract-restcomm-jss7,extract-restcomm-cap-ra-docs" />
 
 	<available file="${restcomm-slee.distro.zip.path}" property="got.restcomm-slee" />
 	<target name="get-restcomm-slee" unless="got.restcomm-slee">
 		<echo>Downloading RestComm Slee version: ${restcomm-slee.version}</echo>
 		<exec failonerror="true" executable="wget">
 		    <arg value="${restcomm-slee.download.url}" />
+		    <arg value="--output-document=${restcomm-slee.download.distro.file}" />
+		    <arg value="--no-check-certificate" />
 		</exec>
 		<move file="${base.dir}/${restcomm-slee.download.distro.file}" todir="${checkout.dir}"/>
 	</target>
@@ -139,20 +162,22 @@
 	<target name="extract-restcomm-slee" depends="get-restcomm-slee">
 		<delete dir="${checkout.restcomm-slee.dir}" failonerror="false" />
 		<unzip src="${restcomm-slee.distro.zip.path}" dest="${release.dir}"/>
-        <copy todir="${release.dir}" failonerror="true">
-                <fileset dir="${release.dir}/restcomm-slee-${restcomm-slee.version}.${restcomm-slee.build-number}">
-                        <include name="**/*" />
-                </fileset>
-        </copy>
+		<copy todir="${release.dir}" failonerror="true">
+			<fileset dir="${release.dir}/restcomm-slee-${restcomm-slee.version}.${restcomm-slee.build-number}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
 		<delete dir="${release.dir}/restcomm-slee-${restcomm-slee.version}.${restcomm-slee.build-number}" includeemptydirs="true" failonerror="false" verbose="false"/>
 		<delete dir="${checkout.restcomm-slee.dir}/jboss-5.1.0.GA/server/all" includeemptydirs="true" failonerror="false" verbose="false"/>
 	</target>
-	
+
 	<available file="${restcomm-jss7.distro.zip.path}" property="got.restcomm-jss7" />
 	<target name="get-restcomm-jss7" unless="got.restcomm-jss7">
 		<echo>Downloading RestComm JSS7 version: ${restcomm-jss7.version}</echo>
 		<exec failonerror="true" executable="wget">
 			<arg value="${restcomm-jss7.download.url}" />
+		    <arg value="--output-document=${restcomm-jss7.download.distro.file}" />
+		    <arg value="--no-check-certificate" />
 		</exec>
 		<move file="${base.dir}/${restcomm-jss7.download.distro.file}" todir="${checkout.dir}"/>
 	</target>
@@ -164,6 +189,36 @@
 	</target>
 
 
+	<available file="${restcomm-cap-ra.distro.jar.path}" property="got.restcomm-cap-ra" />
+	<target name="get-restcomm-cap-ra" unless="got.restcomm-cap-ra">
+		<echo>Downloading RestComm CAP RA version: ${restcomm-cap-ra.version}</echo>
+		<exec failonerror="true" executable="wget">
+			<arg value="${restcomm-cap-ra.download.jar.url}" />
+		    <arg value="--output-document=${restcomm-cap-ra.download.jar.file}" />
+		    <arg value="--no-check-certificate" />
+		</exec>
+		<move file="${base.dir}/${restcomm-cap-ra.download.jar.file}" todir="${checkout.dir}"/>
+	</target>
+
+	<available file="${restcomm-cap-ra.distro.docs.path}" property="got.restcomm-cap-ra-docs" />
+	<target name="get-restcomm-cap-ra-docs" unless="got.restcomm-cap-ra-docs">
+		<echo>Downloading RestComm CAP RA docs version: ${restcomm-cap-ra.version}</echo>
+		<exec failonerror="true" executable="wget">
+			<arg value="${restcomm-cap-ra.download.docs.url}" />
+		    <arg value="--output-document=${restcomm-cap-ra.download.docs.file}" />
+		    <arg value="--no-check-certificate" />
+		</exec>
+		<move file="${base.dir}/${restcomm-cap-ra.download.docs.file}" todir="${checkout.dir}"/>
+	</target>
+
+	<target name="extract-restcomm-cap-ra-docs" depends="get-restcomm-cap-ra-docs">
+		<delete dir="${checkout.restcomm-jss7-ra.dir}" failonerror="false" />
+		<delete dir="${checkout.restcomm-cap-ra.dir}" failonerror="false" />
+		<unzip src="${restcomm-cap-ra.distro.docs.path}" dest="${checkout.restcomm-jss7-ra.dir}"/>
+		<unzip src="${checkout.restcomm-jss7-ra.dir}/CAP/generated-docs.zip" dest="${checkout.restcomm-cap-ra.dir}"/>
+	</target>
+
+
 	<target name="clean-up-restcomm-slee">
 		<mkdir dir="${release.dir}/jboss-5.1.0.GA/server/simulator"/>
 		<copy todir="${release.dir}/jboss-5.1.0.GA/server/simulator" failonerror="true">
@@ -172,16 +227,22 @@
 			</fileset>
 		</copy>
 		<delete dir="${release.dir}/jboss-5.1.0.GA/server/all" includeemptydirs="true" failonerror="true"/>
+
 		<delete includeemptydirs="true" failonerror="true">
 			<fileset dir="${release.dir}/docs/resources">
 				<include name="**" />
+				<exclude name="**/cap/**" />
+				<exclude name="**/http-client/**" />
+				<exclude name="**/http-servlet/**" />
 			</fileset>
-		</delete>
+		</delete>	
 		<delete dir="${release.dir}/docs/enablers" includeemptydirs="true" failonerror="true" />
 		<delete dir="${release.dir}/docs/examples" includeemptydirs="true" failonerror="true" />
 		<delete includeemptydirs="true" failonerror="true">
 			<fileset dir="${release.dir}/resources">
 				<include name="**" />
+				<exclude name="**/http-client/**" />
+				<exclude name="**/http-servlet/**" />
 			</fileset>
 		</delete>
 		<delete failonerror="true">
@@ -234,31 +295,29 @@
 
 
 	<target name="copy-camel">
-		<!--echo>Copy RestComm Map RA</echo>
-        <copy todir="${release.dir}/resources/map" failonerror="true">
-                <fileset dir="${base.dir}/map-ra/target/map-ts-ra">
-                        <include name="**" />
-                </fileset>
-        </copy-->
+		<echo>Copy RestComm Cap RA DU</echo>
+		<copy todir="${release.dir}/resources/cap" failonerror="true">
+			<fileset dir="${checkout.dir}">
+				<include name="${restcomm-cap-ra.download.jar.file}" />
+			</fileset>
+		</copy>
 
 		<echo>Copy CAMEL server</echo>
+
 		<!--default-->
 		<copy todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy/restcomm-camel-gateway" failonerror="true">
 			<fileset dir="${checkout.restcomm-camel.dir}/core/bootstrap/target/restcomm-camel-gateway">
 				<include name="**" />
 			</fileset>
 		</copy>
-		<!--RA's-->
-		<copy file="${checkout.restcomm-slee.jss7-build.dir}/resources/cap/du/target/restcomm-slee-ra-cap-du-${restcomm-slee.ss7.tag}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-client/du/target/http-client-ra-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
 		<copy file="${checkout.restcomm-camel.dir}/core/slee/services-du/target/services-DU-${restcomm.camel.release.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-servlet/common/target/mobicents-slee-ra-http-servlet-common.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-servlet/du/target/mobicents-slee-ra-http-servlet-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
-
+		<!--RA's-->
+		<copy file="${release.dir}/resources/cap/restcomm-slee-ra-cap-du-${restcomm-cap-ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-client/http-client-ra-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-servlet/restcomm-slee-ra-http-servlet-common.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-servlet/restcomm-slee-ra-http-servlet-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
 		<!--Others-->
-		<!--copy file="${release.dir}/resources/map/restcomm-slee-ra-map-du-6.2.0.GA-RestComm.jar" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" /-->
-		<!--copy file="${checkout.restcomm-camel.dir}/management/ui-management/target/camel-management.war" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />
-	    <copy file="${checkout.restcomm-camel.dir}/management/ui-management/target/camel-management.war" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" /-->
+		<!--copy file="${checkout.restcomm-camel.dir}/management/ui-management/target/camel-management.war" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" /> -->
 		<mkdir dir="${release.dir}/jboss-5.1.0.GA/server/default/data"/>
 		<copy file="${basedir}/profile.xml" todir="${release.dir}/jboss-5.1.0.GA/server/default/conf/bootstrap" failonerror="true" overwrite="true"/>
 
@@ -268,25 +327,22 @@
 				<include name="**" />
 			</fileset>
 		</copy>
-		<!--RA's-->
-		<copy file="${checkout.restcomm-slee.jss7-build.dir}/resources/cap/du/target/restcomm-slee-ra-cap-du-${restcomm-slee.ss7.tag}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-client/du/target/http-client-ra-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
 		<copy file="${checkout.restcomm-camel.dir}/core/slee/services-du/target/services-DU-${restcomm.camel.release.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-servlet/common/target/mobicents-slee-ra-http-servlet-common.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
-		<copy file="${checkout.restcomm-slee.http-build.dir}/resources/http-servlet/du/target/mobicents-slee-ra-http-servlet-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
-
+		<!--RA's-->
+		<copy file="${release.dir}/resources/cap/restcomm-slee-ra-cap-du-${restcomm-cap-ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-client/http-client-ra-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-servlet/restcomm-slee-ra-http-servlet-common.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
+		<copy file="${release.dir}/resources/http-servlet/restcomm-slee-ra-http-servlet-DU-${restcomm-slee.http.ra.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
 		<!--Others-->
-		<!--copy file="${release.dir}/resources/map/restcomm-slee-ra-map-du-6.2.0.GA-RestComm.jar" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" /-->
 		<!--copy file="${checkout.restcomm-camel.dir}/management/ui-management/target/camel-management.war" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" /-->
 		<copy todir="${release.dir}/jboss-5.1.0.GA/server/simulator/data" failonerror="true">
 			<fileset dir="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/data">
 				<include name="**" />
 			</fileset>
 		</copy>
-
+		<copy file="${basedir}/profile.xml" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/conf/bootstrap" failonerror="true" overwrite="true"/>
 		<copy file="${checkout.restcomm-camel.dir}/examples/http/target/camelgwhttpdemo.war" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
 
-		<copy file="${basedir}/profile.xml" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/conf/bootstrap" failonerror="true" overwrite="true"/>
 
 		<!--tools-->
 		<copy todir="${release.dir}/tools/restcomm-jss7-simulator" failonerror="true">
@@ -302,7 +358,6 @@
 			</fileset>
 		</copy>
 
-
 		<!--CLI-->
 		<copy todir="${release.dir}/jboss-5.1.0.GA/" failonerror="true">
 			<fileset dir="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/ss7/shell">
@@ -310,11 +365,6 @@
 			</fileset>
 		</copy>
 		<copy file="${checkout.restcomm-camel.dir}/core/oam/cli/target/camelgw-cli-${restcomm.camel.release.version}.jar" todir="${release.dir}/jboss-5.1.0.GA/lib" failonerror="true" />
-		<copy todir="${release.dir}/jboss-5.1.0.GA/" failonerror="true">
-			<fileset dir="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/ss7/shell">
-				<include name="**/*" />
-			</fileset>
-		</copy>
 
 		<!--logs-->
 		<echo>Copy jboss-log4j*.xml</echo>
@@ -342,27 +392,25 @@
 		<!-- jss7 config-->
 		<copy file="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/ss7-simulator/main_simulator2.xml" todir="${release.dir}/tools/restcomm-jss7-simulator/data" failonerror="true" />
 		<copy file="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/ss7-simulator/win_simulator2.xml" todir="${release.dir}/tools/restcomm-jss7-simulator/data" failonerror="true" />
-
 	</target>
 
 	<target name="build-docs">
 		<exec failonerror="true" executable="${mvn.executable}" dir="${checkout.restcomm-camel.dir}/docs">
-			<arg line="${release.build.goals} -Dmaven.test.skip=true" />
+			<arg line="${release.build.goals} -Pall -Dmaven.test.skip=true" />
 		</exec>
 	</target>
 
 	<target name="copy-docs">
 		<!--docs-->
-		<mkdir dir="${bundle.docs.dir}"/>
 
-		<copy toDir="${bundle.docs.dir}/slee" overwrite="true">
-			<fileset dir="${docs.dir}">
-				<include name="**" />
+		<delete dir="${docs.dir}/resources/cap"/>    	
+
+		<copy todir="${docs.dir}/resources/cap/html-book" failonerror="true">
+			<fileset dir="${checkout.restcomm-cap-ra.dir}/generated-docs/html-book">
 			</fileset>
 		</copy>
-		<copy toDir="${docs.dir}/slee" overwrite="true" flatten="true">
-			<fileset dir="${bundle.docs.dir}/slee">
-				<include name="**/*.pdf" />
+		<copy todir="${docs.dir}/resources/cap/pdf" failonerror="true">
+			<fileset dir="${checkout.restcomm-cap-ra.dir}/generated-docs/pdf">
 			</fileset>
 		</copy>
 
@@ -370,12 +418,24 @@
 		<mkdir dir="${docs.dir}/camel"/>
 		<copy todir="${docs.dir}/jss7" failonerror="true">
 			<fileset dir="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/_docs/">
-				<include name="*User_Guide.pdf" />
 			</fileset>
 		</copy>
-		<copy todir="${docs.dir}/camel" failonerror="true" flatten="true">
-			<fileset dir="${checkout.restcomm-camel.dir}/docs/">
-				<include name="**/*.pdf" />
+		<copy todir="${docs.dir}/camel/adminguide/html-book" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/docs/adminguide/sources-asciidoc/target/generated-docs/html-book">
+			</fileset>
+		</copy>
+		<copy todir="${docs.dir}/camel/adminguide/pdf" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/docs/adminguide/sources-asciidoc/target/generated-docs/pdf">
+				<include name="*.pdf" />
+			</fileset>
+		</copy>
+		<copy todir="${docs.dir}/camel/installationguide/html-book" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/docs/installationguide/sources-asciidoc/target/generated-docs/html-book">
+			</fileset>
+		</copy>
+		<copy todir="${docs.dir}/camel/installationguide/pdf" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/docs/installationguide/sources-asciidoc/target/generated-docs/pdf">
+				<include name="*.pdf" />
 			</fileset>
 		</copy>
 
@@ -383,7 +443,7 @@
 
 
 	<target name="make-final-zip" depends="set-time-stamp">
-		<zip destfile="${base.dir}/RestComm-camel-${restcomm.camel.release.version}-${time.stamp}.zip" filesonly="false">
+		<zip destfile="${base.dir}/restcomm-camel-${restcomm.camel.release.version}.zip" filesonly="false">
 			<zipfileset dir="${release.dir}" prefix="RestComm-camel-${restcomm.camel.release.version}">
 				<include name="**" />
 			</zipfileset>
@@ -399,39 +459,16 @@
 	<target name="bundle-documentation" >
 		<echo>bundling documentation</echo>
 
-		<!--delete dir="${bundle.docs.dir}/slee/resources/map"/>    	
-		<copy todir="${bundle.docs.dir}/slee/resources/map" failonerror="true">
-		        <fileset dir="${docs.dir}/resources/map">
-		                <include name="**" />
-		        </fileset>
-		</copy-->
+		<mkdir dir="${bundle.docs.dir}"/>
 
-		<delete dir="${bundle.docs.dir}/slee/tools/slee-management-console"/>
-		<mkdir dir="${bundle.docs.dir}/jss7"/>
-		<mkdir dir="${bundle.docs.dir}/camel"/>
-		<copy todir="${bundle.docs.dir}/jss7" failonerror="true">
-			<fileset dir="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/_docs/">
+		<copy toDir="${bundle.docs.dir}" overwrite="true">
+			<fileset dir="${docs.dir}">
 				<include name="**" />
 			</fileset>
 		</copy>
-		<copy todir="${bundle.docs.dir}/camel/adminguide" failonerror="true">
-			<fileset dir="${checkout.restcomm-camel.dir}/docs/adminguide/jdocbook-restcomm/target/docbook/publish/">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		<copy todir="${bundle.docs.dir}/camel/installationguide" failonerror="true">
-			<fileset dir="${checkout.restcomm-camel.dir}/docs/installationguide/jdocbook-restcomm/target/docbook/publish/">
-				<include name="**"/>
-			</fileset>
-		</copy>
-		<copy todir="${bundle.docs.dir}/camel/releasenotes" failonerror="true">
-			<fileset dir="${checkout.restcomm-camel.dir}/docs/releasenotes/jdocbook-restcomm/target/docbook/publish/">
-				<include name="**"/>
-			</fileset>
-		</copy>
 
-		<zip destfile="${base.dir}/RestComm-camel-${restcomm.camel.release.version}-docs-${time.stamp}.zip" filesonly="false">
-			<zipfileset dir="${bundle.docs.dir}" prefix="RestComm-camel-${restcomm.camel.release.version}/docs">
+		<zip destfile="${base.dir}/restcomm-camel-${restcomm.camel.release.version}-docs.zip" filesonly="false">
+			<zipfileset dir="${bundle.docs.dir}" prefix="restcomm-camel-${restcomm.camel.release.version}/docs">
 				<include name="**/*" />
 			</zipfileset>
 		</zip>
