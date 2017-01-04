@@ -286,11 +286,13 @@
 
 	<target name="build-camel">
 		<exec failonerror="true" executable="${mvn.executable}" dir="${checkout.restcomm-camel.dir}">
-			<arg line="${release.build.goals} -Dmaven.test.skip=true" />
+			<arg line="${release.build.goals}" />
 		</exec>
+<!--
 		<exec failonerror="true" executable="${mvn.executable}" dir="${checkout.restcomm-camel.dir}/test">
 			<arg line="${release.build.goals} -Dmaven.test.skip=true" />
 		</exec>
+-->
 	</target>
 
 
