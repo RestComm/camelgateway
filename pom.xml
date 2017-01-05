@@ -43,12 +43,12 @@
 		<ts.slee.version>2.8.10</ts.slee.version>
 		<jslee.ext.version>${ts.slee.version}</jslee.ext.version>
 
-		<restcomm.jss7.version>3.0.1329</restcomm.jss7.version>
+		<restcomm.jss7.version>7.1.1385</restcomm.jss7.version>
 
 		<!-- mobicents but not strictly ss7 -->
-		<asn.version>2.0.3.FINAL</asn.version>
+		<asn.version>2.1.5</asn.version>
 		<stream.version>1.0.0.CR1</stream.version>
-		<sctp.version>1.6.0.FINAL</sctp.version>
+		<sctp.version>1.7.8</sctp.version>
 		<commons.version>1.0.0.CR1</commons.version>
 
 		<application.name>restcomm-camel-gateway</application.name>

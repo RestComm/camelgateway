@@ -446,7 +446,7 @@
 
 	<target name="make-final-zip" depends="set-time-stamp">
 		<zip destfile="${base.dir}/restcomm-camel-${restcomm.camel.release.version}.zip" filesonly="false">
-			<zipfileset dir="${release.dir}" prefix="RestComm-camel-${restcomm.camel.release.version}">
+			<zipfileset dir="${release.dir}" prefix="restcomm-camel-${restcomm.camel.release.version}">
 				<include name="**" />
 			</zipfileset>
 		</zip>
