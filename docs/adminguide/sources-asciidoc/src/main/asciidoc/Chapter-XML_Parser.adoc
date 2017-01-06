@@ -3,44 +3,9 @@
 
 {this-platform} {this-application} exposes easy to use Java framework to serialize and deserialize the CAP messages. If you are using Java Servlets for your business logic, this framework will make it very easy to compose your business logic. However, using this framework is not mandatory and you are free to create your own XML parser.
 
-[[_mvn_dependency]]
-== Maven dependency
 
-If you are using maven to build your project, define following dependencies to use XML Framework in your project 
 
-[source,xml,subs="verbatim,attributes"]
-----
-		<dependency>
-			<groupId>org.restcomm.camelgw</groupId>
-			<artifactId>xml</artifactId>
-			<version>{project-version}</version>
-		</dependency>
-----
-
-.Note
-[NOTE]
-====
-Telestax maintains the archieve in sonatype repository. Please add the following in your pom's repositories tag 
-
-[source,xml]
-----
-
-		<repository>
-			<id>mobicents-public-repository-group</id>
-			<name>Mobicens Public Maven Repository Group</name>
-			<url>https://oss.sonatype.org/content/groups/public/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>never</updatePolicy>
-			</snapshots>
-		</repository>
-----
-====
+include::Chapter-XML_Parser_Rep.adoc[]
 
 
 
