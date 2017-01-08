@@ -38,6 +38,7 @@ import net.java.client.slee.resource.http.HttpClientResourceAdaptorSbbInterface;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
+import org.restcomm.camelgateway.CamelStatAggregator;
 import org.restcomm.camelgateway.EventsSerializeFactory;
 import org.restcomm.camelgateway.XmlCAPDialog;
 import org.mobicents.protocols.asn.AsnOutputStream;
@@ -80,6 +81,11 @@ public class CamelBaseSbb {
 	}
 
 	protected EventsSerializeFactory eventsSerializeFactory = null;
+
+    // -------------------------------------------------------------
+    // Statistics STUFF
+    // -------------------------------------------------------------
+    protected CamelStatAggregator camelStatAggregator;
 
 	// -------------------------------------------------------------
 	// SLEE STUFF
@@ -136,7 +142,9 @@ public class CamelBaseSbb {
 				.getActivityContextInterfaceFactory(httpClientRATypeID);
 		this.httpClientProvider = (HttpClientResourceAdaptorSbbInterface) this.sbbContext.getResourceAdaptorInterface(
 				httpClientRATypeID, httpClientRaLink);
-		
+
+		camelStatAggregator = CamelStatAggregator.getInstance();
+
 		this.timerFacility = this.sbbContext.getTimerFacility();
 	}
 
@@ -206,6 +214,9 @@ public class CamelBaseSbb {
         // sending of Invokes / RRL
         FastList<CAPMessage> capMessages = xmlCAPDialog.getCAPMessages();
         for (FastList.Node<CAPMessage> n = capMessages.head(), end = capMessages.tail(); (n = n.getNext()) != end;) {
+            camelStatAggregator.updateMessagesSent();
+            camelStatAggregator.updateMessagesAll();
+
             CAPMessage capMessage = n.getValue();
             if (addedMsgs > 0) {
                 // we need to test if we have enough free space to send a component in the same massage

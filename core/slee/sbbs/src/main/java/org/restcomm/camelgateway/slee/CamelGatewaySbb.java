@@ -187,6 +187,8 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
 			aci.detach(this.sbbContext.getSbbLocalObject());
 
 		}
+
+        camelStatAggregator.updateDialogsAllEstablished();
 	}
 
 	public void onDIALOG_ACCEPT(org.mobicents.slee.resource.cap.events.DialogAccept event, ActivityContextInterface aci) {
@@ -310,6 +312,9 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
 		XmlCAPDialog dialog = this.getXmlCAPDialog();
 		dialog.addCAPMessage(((CAPEvent) event).getWrappedEvent());
 		this.setXmlCAPDialog(dialog);
+
+        camelStatAggregator.updateMessagesRecieved();
+        camelStatAggregator.updateMessagesAll();
 	}
 
 	public void onACTIVITY_TEST_REQUEST(
@@ -340,7 +345,11 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
         XmlCAPDialog dialog = this.getXmlCAPDialog();
         dialog.addCAPMessage(((CAPEvent) event).getWrappedEvent());
         this.setXmlCAPDialog(dialog);
-//		}
+
+        camelStatAggregator.updateMessagesRecieved();
+        camelStatAggregator.updateMessagesAll();
+
+        //		}
 	}
 
 	public void onAPPLY_CHARGING_REQUEST(
@@ -408,6 +417,9 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
         XmlCAPDialog dialog = this.getXmlCAPDialog();
         dialog.addCAPMessage(((CAPEvent) event).getWrappedEvent());
         this.setXmlCAPDialog(dialog);
+
+        camelStatAggregator.updateMessagesRecieved();
+        camelStatAggregator.updateMessagesAll();
 //		}
 	}
 
@@ -437,6 +449,9 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
         XmlCAPDialog dialog = this.getXmlCAPDialog();
         dialog.addCAPMessage(((CAPEvent) event).getWrappedEvent());
         this.setXmlCAPDialog(dialog);
+
+        camelStatAggregator.updateMessagesRecieved();
+        camelStatAggregator.updateMessagesAll();
     }
 
 	public void onREQUEST_REPORT_BCSM_EVENT_REQUEST(

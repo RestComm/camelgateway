@@ -264,4 +264,10 @@
  			<parameter><inject bean="TcapStack" /></parameter>
  		</constructor>
  	</bean>		
+
+    <bean name="CamelStatProviderJmx" class="org.restcomm.camelgateway.CamelStatProviderJmx">
+        <constructor>
+            <parameter><inject bean="Ss7Management" /></parameter>
+        </constructor>
+    </bean> 
 </deployment>

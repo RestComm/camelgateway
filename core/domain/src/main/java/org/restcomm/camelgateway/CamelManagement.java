@@ -65,7 +65,9 @@ public class CamelManagement {
 	}
 
 	public void start() throws Exception {
-		this.camelPropertiesManagement = CamelPropertiesManagement.getInstance(this.name);
+        CamelStatAggregator.getInstance().clearDialogsInProcess();
+
+        this.camelPropertiesManagement = CamelPropertiesManagement.getInstance(this.name);
 		this.camelPropertiesManagement.setPersistDir(this.persistDir);
 		this.camelPropertiesManagement.start();
 
