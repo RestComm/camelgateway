@@ -384,6 +384,18 @@
 		<copy file="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/log4j/jboss-log4j-default.xml" tofile="${release.dir}/jboss-5.1.0.GA/server/default/conf/jboss-log4j.xml" overwrite="true"></copy>
     	<copy file="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/log4j/jboss-log4j-default.xml" tofile="${release.dir}/jboss-5.1.0.GA/server/simulator/conf/jboss-log4j.xml" overwrite="true"></copy>
 
+		<!--jboss-mbeans.xml templates-->
+		<copy todir="${release.dir}/template/META-INF-dialogic/" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/META-INF-dialogic">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<copy todir="${release.dir}/template/META-INF-m3ua-dialogic/" failonerror="true">
+			<fileset dir="${checkout.restcomm-camel.dir}/core/bootstrap/src/main/config/META-INF-m3ua-dialogic">
+				<include name="**" />
+			</fileset>
+		</copy>
+
 		<!-- oam/new-ui - jolokia war & jss7-management-console.war-->
 		<copy file="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/oam/new-ui/jolokia.war" todir="${release.dir}/jboss-5.1.0.GA/server/simulator/deploy" failonerror="true" />
 		<copy file="${checkout.restcomm-jss7.dir}/restcomm-jss7-${restcomm-jss7.version}/oam/new-ui/jolokia.war" todir="${release.dir}/jboss-5.1.0.GA/server/default/deploy" failonerror="true" />

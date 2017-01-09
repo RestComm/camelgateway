@@ -2,6 +2,7 @@
 <deployment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="urn:jboss:bean-deployer:2.0">
 
+
 	<bean name="SCTPManagement" class="org.mobicents.protocols.sctp.ManagementImpl">
 		<constructor>
 			<parameter>SCTPManagement</parameter>
@@ -32,7 +33,7 @@
 			<parameter>ITU</parameter>
 		</constructor>
 	</bean>
-
+		
 	<bean name="Mtp3UserPart" class="org.mobicents.protocols.ss7.m3ua.impl.M3UAManagementImpl">
 		<constructor>
 			<parameter>Mtp3UserPart</parameter>
@@ -77,15 +78,14 @@
 			<inject bean="SS7Clock" />
 		</property>
 	</bean>	
-	
+
 	<!-- ==================================================================== -->
 	<!-- Dialogic Mtp3UserPart -->
 	<!-- ==================================================================== -->
-<!--
-	<bean name="Mtp3UserPart"
+	<bean name="Mtp3UserPart_Dialogic"
 		class="org.mobicents.ss7.hardware.dialogic.DialogicMtp3UserPart">
 		<constructor>
-			<parameter>RestComm-CAMEL</parameter>
+			<parameter>RestComm-jSS7</parameter>
 		</constructor>
 		<property name="sourceModuleId">61</property>
 		<property name="destinationModuleId">34</property>
@@ -93,7 +93,6 @@
 			<inject bean="RoutingLabelFormat" />
 		</property>
 	</bean>
--->
 
 	<!-- ==================================================================== -->
 	<!-- SCCP Service -->
@@ -109,6 +108,12 @@
 					<key>1</key>
 					<value>
 						<inject bean="Mtp3UserPart" />
+					</value>
+				</entry>
+				<entry>
+					<key>2</key>
+					<value>
+						<inject bean="Mtp3UserPart_Dialogic" />
 					</value>
 				</entry>
 			</map>
