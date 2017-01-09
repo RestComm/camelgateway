@@ -21,6 +21,9 @@
 		<release.name>
 			${release.name.prefix}${project.parent.version}${release.name.suffix}
 		</release.name>
+		<restcomm.tools.mavenplugin.eclipse.version>
+			1.0.0.FINAL
+		</restcomm.tools.mavenplugin.eclipse.version>
 
 		<jboss.microcontainer.version>2.2.0.M2</jboss.microcontainer.version>
 		<compiler.plugin.version>2.0.2</compiler.plugin.version>
@@ -159,7 +162,7 @@
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<groupId>org.mobicents.tools</groupId>
 				<version>
-					${mobicents.tools.mavenplugin.eclipse.version}
+					${restcomm.tools.mavenplugin.eclipse.version}
 				</version>
 				<inherited>false</inherited>
 				<executions />
