@@ -599,6 +599,7 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
                         }
 
                         if (capDialog.getState() == CAPDialogState.InitialReceived || prearrangedEnd != null
+                                || (xmlCAPDialog.getSendEmptyContinue() != null && xmlCAPDialog.getSendEmptyContinue())
                                 || xmlCAPDialog.getErrorComponents().size() > 0 || xmlCAPDialog.getCAPMessages().size() > 0) {
                             if (prearrangedEnd != null) {
                                 capDialog.close(prearrangedEnd);

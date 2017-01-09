@@ -147,21 +147,29 @@ It will also specify what other CAP components (Invokes, ReturnResult or Error m
 The description below will help you to understand these payloads. 
 
 * Empty message: Application can respond back to the Gateway such that it sends an empty TC-CONTINUE message to a peer, without ending the Dialog.
-The Application needs to provide "capMessagesSize="0" attribute for <dialog> to specify that no CAP Invokes / Return response needs to be sent. 
+The Application needs to provide "capMessagesSize="0" attribute for <dialog> to specify that no CAP Invokes / Return response needs to be sent.
 [source,xml]
 ----
-
-										
 <?xml version="1.0" encoding="UTF-8" ?>
 	<dialog capMessagesSize="0">
 </dialog>
 ----	 
+
+* Empty TC-CONTINUE message (without CAP requests or error messages) will be sent only at a dialog intiating state.
+If a dialog is already set and no CAP requests or error messages in HTTP payload then CAMEL GW will not send an empty TC-CONTINUE message to a peer.
+If you do need to send an empty TC-CONTINUE in a dialog set step you need to add `sendEmptyContinue="true"` attribute
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+	<dialog capMessagesSize="0" sendEmptyContinue="true">
+</dialog>
+----	 
+
+
 * Empty message that will end the CAP Dialog: To end the dialog, the application needs to add a parameter `prearrangedEnd="false"`.
 The Gateway will send an empty TC-END and close the Dialog. 
 [source,xml]
 ----
-
-										
 <?xml version="1.0" encoding="UTF-8" ?>
 	<dialog capMessagesSize="0" prearrangedEnd="false">
 </dialog>

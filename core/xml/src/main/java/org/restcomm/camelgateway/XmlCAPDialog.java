@@ -43,7 +43,7 @@ import org.mobicents.protocols.ss7.tcap.asn.comp.ReturnResultLast;
 /**
  * @author Amit Bhayani
  * @author sergey vetyutnev
- * 
+ *
  */
 public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDialog, XMLSerializable {
 
@@ -58,7 +58,8 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
     private static final String CAP_USER_ABORT_REASON = "capUserAbortReason";
     private static final String P_ABORT_CAUSE_TYPE = "pAbortCauseType";
 
-	private static final String PRE_ARRANGED_END = "prearrangedEnd";
+    private static final String PRE_ARRANGED_END = "prearrangedEnd";
+    private static final String SEND_EMPTY_CONTINUE = "sendEmptyContinue";
 	
 	private static final String NO_ACTIVITY_TIMEOUT = "noActivityTimeOut";
 
@@ -89,7 +90,8 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
 
 	private CAPUserAbortReason capUserAbortReason = null;
 	private PAbortCauseType pAbortCauseType = null;
-	private Boolean prearrangedEnd = null;
+    private Boolean prearrangedEnd = null;
+    private Boolean sendEmptyContinue = null;
 
 	private Long localId;
 	private Long remoteId;
@@ -612,9 +614,17 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
         pAbortCauseType = val;
     }
 
-	public Boolean getPrearrangedEnd() {
-		return prearrangedEnd;
-	}
+    public Boolean getPrearrangedEnd() {
+        return prearrangedEnd;
+    }
+
+    public Boolean getSendEmptyContinue() {
+        return this.sendEmptyContinue;
+    }
+
+    public void setSendEmptyContinue(Boolean val) {
+        this.sendEmptyContinue = val;
+    }
 
 
 	@Override
@@ -750,6 +760,7 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
             }
 
             xml.setAttribute(PRE_ARRANGED_END, dialog.prearrangedEnd);
+            xml.setAttribute(SEND_EMPTY_CONTINUE, dialog.sendEmptyContinue);
             
             xml.setAttribute(NO_ACTIVITY_TIMEOUT, dialog.noActivityTimeout);
 
@@ -880,11 +891,16 @@ public class XmlCAPDialog implements org.mobicents.protocols.ss7.cap.api.CAPDial
                 dialog.pAbortCauseType = CAPUserAbortReason.valueOf(PAbortCauseType.class, pAbortCauseTypeStr);
             }
 
-			String preArrEndStr = xml.getAttribute(PRE_ARRANGED_END, null);
-			if (preArrEndStr != null) {
-				dialog.prearrangedEnd = Boolean.parseBoolean(preArrEndStr);
-			}
-			
+            String preArrEndStr = xml.getAttribute(PRE_ARRANGED_END, null);
+            if (preArrEndStr != null) {
+                dialog.prearrangedEnd = Boolean.parseBoolean(preArrEndStr);
+            }
+
+            String sendEmptyContinueStr = xml.getAttribute(SEND_EMPTY_CONTINUE, null);
+            if (sendEmptyContinueStr != null) {
+                dialog.sendEmptyContinue = Boolean.parseBoolean(sendEmptyContinueStr);
+            }
+
 			String noActivityTimeoutStr = xml.getAttribute(NO_ACTIVITY_TIMEOUT, null);
 			if(noActivityTimeoutStr != null){
 				dialog.noActivityTimeout = Boolean.parseBoolean(noActivityTimeoutStr);
