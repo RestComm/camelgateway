@@ -66,8 +66,8 @@ public class CamelStatProviderJmx implements CamelStatProviderJmxMBean, CounterM
 
     private RestcommStatsReporter statsReporter = RestcommStatsReporter.getRestcommStatsReporter();
     private MetricRegistry metrics = RestcommStatsReporter.getMetricRegistry();
-    private Counter counterDialogs = metrics.counter("camel_dialogs");
-    private Counter counterMessages = metrics.counter("messages");
+    private Counter counterDialogs = metrics.counter("calls");
+    private Counter counterSeconds = metrics.counter("seconds");
 
     public CamelStatProviderJmx(MBeanHost ss7Management) {
         this.ss7Management = ss7Management;
@@ -105,7 +105,7 @@ public class CamelStatProviderJmx implements CamelStatProviderJmxMBean, CounterM
         statsReporter.start(86400, TimeUnit.SECONDS);
 
         camelStatAggregator.setCounterDialogs(counterDialogs);
-        camelStatAggregator.setCounterMessages(counterMessages);
+        camelStatAggregator.setCounterSeconds(counterSeconds);
 
         logger.info("CamelStatProviderJmx Started ...");
     }
@@ -136,6 +136,11 @@ public class CamelStatProviderJmx implements CamelStatProviderJmxMBean, CounterM
         CounterDef cd = new CounterDefImpl(CounterType.Summary, "DialogsAllEstablished", "Dialogs successfully established all");
         cds.addCounterDef(cd);
         cd = new CounterDefImpl(CounterType.Summary_Cumulative, "DialogsAllEstablishedCumulative", "Dialogs successfully established all cumulative");
+        cds.addCounterDef(cd);
+
+        cd = new CounterDefImpl(CounterType.Summary, "SecondsAll", "Duration all successfull dialogs in seconds");
+        cds.addCounterDef(cd);
+        cd = new CounterDefImpl(CounterType.Summary_Cumulative, "SecondsAllCumulative", "Duration all successfull dialogs in seconds cumulative");
         cds.addCounterDef(cd);
 
 //        cd = new CounterDefImpl(CounterType.Summary, "DialogsAllFailed", "Dialogs failed at establishing or established phases all");
@@ -285,8 +290,16 @@ public class CamelStatProviderJmx implements CamelStatProviderJmxMBean, CounterM
 //                        svo = new SourceValueObjectImpl(this.getName(), res);
 //
 //                } else 
+
                 if (cd.getCounterName().equals("DialogsAllEstablished")) {
                     svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getDialogsAllEstablished());
+                } else if (cd.getCounterName().equals("DialogsAllEstablishedCumulative")) {
+                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getDialogsAllEstablishedCumulative());
+                } else if (cd.getCounterName().equals("SecondsAll")) {
+                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getSecondsAll());
+                } else if (cd.getCounterName().equals("SecondsAllCumulative")) {
+                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getSecondsAllCumulative());
+
 //                } else if (cd.getCounterName().equals("DialogsAllFailed")) {
 //                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getDialogsAllFailed());
 //                } else if (cd.getCounterName().equals("DialogsPullEstablished")) {
@@ -315,8 +328,6 @@ public class CamelStatProviderJmx implements CamelStatProviderJmxMBean, CounterM
                 } else if (cd.getCounterName().equals("MessagesAllCumulative")) {
                     svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getMessagesAllCumulative());
 
-                } else if (cd.getCounterName().equals("DialogsAllEstablishedCumulative")) {
-                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getDialogsAllEstablishedCumulative());
 //                } else if (cd.getCounterName().equals("DialogsAllFailedCumulative")) {
 //                    svo = new SourceValueObjectImpl(this.getName(), camelStatAggregator.getDialogsAllFailedCumulative());
 

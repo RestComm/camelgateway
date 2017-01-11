@@ -48,7 +48,7 @@ public class CamelStatAggregator {
   private UUID sessionId = UUID.randomUUID();
 
   private Counter counterDialogs;
-  private Counter counterMessages;
+  private Counter counterSeconds;
 
   public static CamelStatAggregator getInstance() {
       return instance;
@@ -58,8 +58,8 @@ public class CamelStatAggregator {
       this.counterDialogs = counterDialogs;
   }
 
-  public void setCounterMessages(Counter counterMessages) {
-      this.counterMessages = counterMessages;
+  public void setCounterSeconds(Counter counterSeconds) {
+      this.counterSeconds = counterSeconds;
   }
 
   public void reset() {
@@ -232,10 +232,22 @@ public class CamelStatAggregator {
 
   public void updateMessagesAll() {
       statCollector.messagesAll.addAndGet(1);
-
-      if (counterMessages != null)
-          counterMessages.inc();
   }
+
+  public long getSecondsAll() {
+      return statCollector.secondsAll.get();
+  }
+
+  public long getSecondsAllCumulative() {
+      return statCollector.secondsAll.get();
+  }
+
+    public void updateSecondsAll(long seconds) {
+        statCollector.secondsAll.addAndGet(seconds);
+
+        if (counterSeconds != null)
+            counterSeconds.inc(seconds);
+    }
 
 //  public long getDialogsAllFailedCumulative() {
 //      return statCollector.dialogsAllFailed.get();
@@ -379,6 +391,8 @@ public class CamelStatAggregator {
       private AtomicLong messagesRecieved = new AtomicLong();
       private AtomicLong messagesSent = new AtomicLong();
       private AtomicLong messagesAll = new AtomicLong();
+
+      private AtomicLong secondsAll = new AtomicLong();
 
 //      private AtomicLong processUssdRequestOperations = new AtomicLong();
 //      private AtomicLong ussdRequestOperations = new AtomicLong();

@@ -189,6 +189,7 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
 		}
 
         camelStatAggregator.updateDialogsAllEstablished();
+        this.setStartDialogTime(System.currentTimeMillis());
 	}
 
 	public void onDIALOG_ACCEPT(org.mobicents.slee.resource.cap.events.DialogAccept event, ActivityContextInterface aci) {
@@ -283,6 +284,8 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
         this.setXmlCAPDialog(dialog);
 
         this.setCapDialogClosed(true);
+
+        this.updateDialogTime();
 
 //        this.endHttpClientActivity();
 	}
@@ -603,6 +606,7 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
                                 || xmlCAPDialog.getErrorComponents().size() > 0 || xmlCAPDialog.getCAPMessages().size() > 0) {
                             if (prearrangedEnd != null) {
                                 capDialog.close(prearrangedEnd);
+                                this.updateDialogTime();
                                 if (httpPayloadIsSent)
                                     this.setCapDialogClosed(true);
                                 else
@@ -681,6 +685,11 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
 
 	// 'timerID' CMP field getter
 	public abstract TimerID getTimerID();
+
+    public abstract void setStartDialogTime(long value);
+
+    public abstract long getStartDialogTime();
+
     /**
 	 * Private methods
 	 */
@@ -839,5 +848,13 @@ public abstract class CamelGatewaySbb extends CamelBaseSbb implements Sbb /*, Ca
 			this.timerFacility.cancelTimer(timerId);
 		}
 	}
+
+    protected void updateDialogTime() {
+        long startTime = this.getStartDialogTime();
+        if (startTime != 0) {
+            long endTime = System.currentTimeMillis();
+            camelStatAggregator.updateSecondsAll((endTime - startTime) / 1000);
+        }
+    }
 
 }

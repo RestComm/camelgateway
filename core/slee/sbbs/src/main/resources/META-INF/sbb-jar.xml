@@ -33,6 +33,10 @@
 				<cmp-field>
 					<cmp-field-name>timerID</cmp-field-name>
 				</cmp-field>
+				<cmp-field>
+					<cmp-field-name>startDialogTime</cmp-field-name>
+				</cmp-field>
+				
 <!--
 				<cmp-field>
 					<cmp-field-name>redirect</cmp-field-name>
