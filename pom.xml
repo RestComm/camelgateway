@@ -10,7 +10,7 @@
 
 	<groupId>org.restcomm.camelgw</groupId>
 	<artifactId>parent</artifactId>
-	<version>7.0.0-SNAPSHOT</version>
+	<version>7.1.0-SNAPSHOT</version>
 
 	<name>CAMEL Gateway Parent</name>
 
@@ -41,23 +41,23 @@
 
 		<mobicents.resources.http-servlet.version>2.8.10</mobicents.resources.http-servlet.version>
 		<mobicents.resources.http-client.version>2.8.10</mobicents.resources.http-client.version>
-		<mobicents.resources.cap.version>2.8.25</mobicents.resources.cap.version>
+		<mobicents.resources.cap.version>7.4.0-71</mobicents.resources.cap.version>
 
 		<ts.slee.version>2.8.10</ts.slee.version>
 		<jslee.ext.version>${ts.slee.version}</jslee.ext.version>
 
-		<restcomm.jss7.version>7.1.1385</restcomm.jss7.version>
+		<restcomm.jss7.version>7.4.0-65</restcomm.jss7.version>
 
 		<!-- mobicents but not strictly ss7 -->
-		<asn.version>2.1.5</asn.version>
+		<asn.version>2.2.0-22</asn.version>
 		<stream.version>1.0.0.CR1</stream.version>
-		<sctp.version>1.7.8</sctp.version>
+		<sctp.version>1.8.0-11</sctp.version>
 		<commons.version>1.0.0.CR1</commons.version>
 		<metrics.version>3.1.0</metrics.version>
 
 		<application.name>restcomm-camel-gateway</application.name>
 
-		<restcomm.commons.version>2.0.145</restcomm.commons.version>
+		<restcomm.commons.version>2.0.147</restcomm.commons.version>
 		<httpclient.version>4.5.2</httpclient.version>
 		<httpcore.version>4.4.5</httpcore.version>
 		<gson.version>2.6.2</gson.version>
