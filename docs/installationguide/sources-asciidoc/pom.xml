@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>restcomm-camelgw-installguide</artifactId>
 		<groupId>org.restcomm.camelgw.docs.installguide</groupId>
-		<version>7.1.0-SNAPSHOT</version>
+		<version>7.1.0-67</version>
 	</parent>
 
 	<artifactId>restcomm-camelgw-installguide-sources-asciidoc</artifactId>
