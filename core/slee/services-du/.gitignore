@@ -1,1 +1,3 @@
 /target/
+/${env.JBOSS_HOME}/
+/.settings/

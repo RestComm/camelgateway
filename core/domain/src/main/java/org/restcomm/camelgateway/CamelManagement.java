@@ -21,6 +21,8 @@
  */
 package org.restcomm.camelgateway;
 
+import java.lang.management.ManagementFactory;
+
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.management.StandardMBean;
@@ -32,7 +34,7 @@ import org.jboss.mx.util.MBeanServerLocator;
  * @author amit bhayani
  * 
  */
-public class CamelManagement {
+public class CamelManagement implements CamelManagementMBean {
 	private static final Logger logger = Logger.getLogger(CamelManagement.class);
 
 	public static final String JMX_DOMAIN = "org.restcomm.camelgateway";
@@ -40,6 +42,8 @@ public class CamelManagement {
 	protected static final String CAMEL_PERSIST_DIR_KEY = "camel.persist.dir";
 	protected static final String USER_DIR_KEY = "user.dir";
 
+	private static CamelManagement INSTANCE;
+	
 	private String persistDir = null;
 	private final String name;
 
@@ -48,10 +52,23 @@ public class CamelManagement {
 
 	private MBeanServer mbeanServer = null;
 
+	private boolean isStarted;
+
 	public CamelManagement(String name) {
 		this.name = name;
 	}
+	
+	public static CamelManagement getInstance(String name) {
+		if(INSTANCE == null) {
+			INSTANCE = new CamelManagement(name);	
+		}
+		return INSTANCE;
+	}
 
+	public static CamelManagement getInstance() {
+		return INSTANCE;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -65,9 +82,9 @@ public class CamelManagement {
 	}
 
 	public void start() throws Exception {
-        CamelStatAggregator.getInstance().clearDialogsInProcess();
+		CamelStatAggregator.getInstance().clearDialogsInProcess();
 
-        this.camelPropertiesManagement = CamelPropertiesManagement.getInstance(this.name);
+		this.camelPropertiesManagement = CamelPropertiesManagement.getInstance(this.name);
 		this.camelPropertiesManagement.setPersistDir(this.persistDir);
 		this.camelPropertiesManagement.start();
 
@@ -76,20 +93,22 @@ public class CamelManagement {
 		this.networkRoutingRuleManagement.start();
 
 		// Register the MBeans
-		this.mbeanServer = MBeanServerLocator.locateJBoss();
+		this.mbeanServer = ManagementFactory.getPlatformMBeanServer();
 
 		ObjectName camelPropObjNname = new ObjectName(CamelManagement.JMX_DOMAIN + ":name=CamelPropertiesManagement");
 		StandardMBean camelPropMxBean = new StandardMBean(this.camelPropertiesManagement,
 				CamelPropertiesManagementMBean.class, true);
 		this.mbeanServer.registerMBean(camelPropMxBean, camelPropObjNname);
 
-		ObjectName ussdScRuleObjNname = new ObjectName(CamelManagement.JMX_DOMAIN
-				+ ":name=NetworkRoutingRuleManagement");
+		ObjectName ussdScRuleObjNname = new ObjectName(
+				CamelManagement.JMX_DOMAIN + ":name=NetworkRoutingRuleManagement");
 		StandardMBean ussdScRuleMxBean = new StandardMBean(this.networkRoutingRuleManagement,
 				NetworkRoutingRuleManagementMBean.class, true);
 		this.mbeanServer.registerMBean(ussdScRuleMxBean, ussdScRuleObjNname);
 
 		logger.info("Started CamelGatewayManagement");
+		
+		this.isStarted = true;
 	}
 
 	public void stop() throws Exception {
@@ -98,13 +117,17 @@ public class CamelManagement {
 
 		if (this.mbeanServer != null) {
 
-			ObjectName camelPropObjNname = new ObjectName(CamelManagement.JMX_DOMAIN
-					+ ":name=CamelPropertiesManagement");
+			ObjectName camelPropObjNname = new ObjectName(
+					CamelManagement.JMX_DOMAIN + ":name=CamelPropertiesManagement");
 			this.mbeanServer.unregisterMBean(camelPropObjNname);
 
-			ObjectName ussdScRuleObjNname = new ObjectName(CamelManagement.JMX_DOMAIN
-					+ ":name=NetworkRoutingRuleManagement");
+			ObjectName ussdScRuleObjNname = new ObjectName(
+					CamelManagement.JMX_DOMAIN + ":name=NetworkRoutingRuleManagement");
 			this.mbeanServer.unregisterMBean(ussdScRuleObjNname);
 		}
+	}
+
+	public boolean isStarted() {
+		return isStarted;
 	}
 }

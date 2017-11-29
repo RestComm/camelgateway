@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+	<deployment>
+		<dependencies>
+			<module name="org.mobicents.ss7.modules" />
+			<module name="org.restcomm.camel.bootstrap" />
+			<module name="org.apache.commons.logging" />
+			<module name="org.apache.commons.pool" />
+			<module name="org.apache.log4j" />
+			<module name="org.mobicents.ss7.commons" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>

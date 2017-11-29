@@ -1,0 +1,44 @@
+<assembly>
+
+	<id>wildfly</id>
+
+	<formats>
+		<format>dir</format>
+	</formats>
+
+	<baseDirectory>main</baseDirectory>
+
+	<fileSets>
+		<fileSet>
+			<directory>src/main/module</directory>
+			<outputDirectory>/</outputDirectory>
+			<filtered>true</filtered>
+		</fileSet>
+	</fileSets>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+			<includes>
+				<!-- CAMEL libraris -->
+				<include>org.restcomm.camelgw:bootstrap-wildfly</include>
+				<include>org.restcomm.camelgw:domain</include>
+				<include>org.restcomm.camelgw:xml</include>
+				<include>javolution:javolution</include>
+				<include>org.mobicents.protocols.asn:asn</include>
+				<include>org.mobicents.protocols.stream:stream</include>
+				<include>org.mobicents.commons:commons</include>
+				<include>org.apache.httpcomponents:httpclient</include>
+				<include>org.apache.httpcomponents:httpcore</include>
+				<include>com.google.code.gson:gson</include>
+				<include>com.codahale.metrics:metrics-core</include>
+				<include>org.mobicents.protocols.ss7.statistics:statistics-api</include>
+				<include>org.mobicents.protocols.ss7.statistics:statistics-impl</include>
+				<include>org.restcomm.commons:restcomm-statistics</include>
+			</includes>
+		</dependencySet>
+	</dependencySets>
+
+</assembly>
