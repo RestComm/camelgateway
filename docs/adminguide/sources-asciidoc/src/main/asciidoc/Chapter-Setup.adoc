@@ -238,7 +238,7 @@ image::images/USSD-Guvnor-CreatePackage.png[]
 
 . Upload fact model.
 +
-To upload a model, use ussdgateway-domain-x.y.z.jar which has the fact model (Call.java API) that you will be using in your rules.
+To upload a model, use domain-x.y.z.jar which has the fact model (Call.java API) that you will be using in your rules.
 When you are in the model editor screen, you can upload a jar file, choose the package name from the list that you created in the previous step.
 Go to menu:Knowledge Base > Create New > Upload POJO Model Jar
 						[]						. On the screen enter name as `UssdPojo`						, select package `ussdGateway`						and add the description, click btn:[Ok]						. 
@@ -246,7 +246,7 @@ Go to menu:Knowledge Base > Create New > Upload POJO Model Jar
 
 image::images/USSD-Guvnor-UploadModel.png[]
 +
-Browse in newly open window and point to [path]_${JBOSS.HOME}/server/default/deploy/mobicents-ussd-gateway/lib/ussdgateway-domain-x.y.z.jar
+Browse in newly open window and point to [path]_${JBOSS.HOME}/server/default/deploy/mobicents-ussd-gateway/lib/ussdgateway-domain-x.y.z.jar for JBoss AS or [path]_${JBOSS.HOME}/modules/system/layers/base/org/restcomm/camel/bootstrap/main/domain-x.y.z.jar for Wildfly 10
 						_						. 
 
 . Edit your package configuration.

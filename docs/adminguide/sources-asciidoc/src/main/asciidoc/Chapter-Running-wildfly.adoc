@@ -1,0 +1,86 @@
+= Running (Wildfly 10)
+
+== Running the Gateway
+
+.Procedure: Run {this-platform} {this-application} 
+. Pre-requisite: 
++
+* You must have {this-platform} {this-application} installed as explained in the Installation Guide.
+
+. In order to start the Gateway, you must start the Wildfly Application Server.
+  Execute the [path]_standalone.sh_ (Unix) or  [path]_standalone.bat_ (Microsoft Windows) startup script in the [path]_{this-folder}-camel-{project-version}/wildfly-10.1.0.Final/bin_ folder (on Unix or Windows). Note that this will start the server in the default profile.
+  The "default" profile is a clean profile, which entails configuring the entire SS7 Stack and CAMEL Gateway. 
+. Result: If the service started properly you should see the following last few output lines in the Unix terminal or Command Prompt depending on your environment: 
++
+----
+
+13:56:00,335 INFO  [org.mobicents.slee.container.management.jmx.DeploymentMBeanImpl] (MSC service thread 1-1) Installed LibraryID[name=library-camelgateway,vendor=org.restcomm,version=2.0]
+13:56:00,365 INFO  [org.mobicents.slee.container.management.jmx.DeploymentMBeanImpl] (MSC service thread 1-1) Installed SbbID[name=CamelGatewaySbb,vendor=org.restcomm,version=1.0]
+13:56:00,386 INFO  [org.mobicents.slee.container.management.jmx.DeploymentMBeanImpl] (MSC service thread 1-1) Installed ServiceID[name=restcomm-camelgateway,vendor=org.restcomm,version=1.0]. Root sbb is SbbID[name=CamelGatewaySbb,vendor=org.restcomm,version=1.0]
+13:56:00,387 INFO  [org.mobicents.slee.container.management.jmx.DeploymentMBeanImpl] (MSC service thread 1-1) Installed DeployableUnitID[url=file:/home/username/telestax/camel/restcomm-camel-7.1.0-SNAPSHOT/wildfly-10.1.0.Final/standalone/tmp/vfs/temp/temp140359faa8bddbaf/content-4b9e323242f1152e/content/]
+13:56:00,665 INFO  [org.mobicents.slee.container.management.ServiceManagementImpl] (MSC service thread 1-1) Activated ServiceID[name=restcomm-camelgateway,vendor=org.restcomm,version=1.0]
+13:56:00,926 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "restcomm-slee-ra-cap-du-7.4.0-84.jar" (runtime-name : "restcomm-slee-ra-cap-du-7.4.0-84.jar")
+13:56:00,926 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "services-DU-7.1.0-SNAPSHOT.jar" (runtime-name : "services-DU-7.1.0-SNAPSHOT.jar")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "restcomm.war" (runtime-name : "restcomm.war")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "jss7-management-console.war" (runtime-name : "jss7-management-console.war")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "restcomm-slee-ra-http-servlet-DU-7.2.0-63.jar" (runtime-name : "restcomm-slee-ra-http-servlet-DU-7.2.0-63.jar")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "restcomm-slee-http-client-ra-DU-7.2.0-63.jar" (runtime-name : "restcomm-slee-http-client-ra-DU-7.2.0-63.jar")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "jolokia.war" (runtime-name : "jolokia.war")
+13:56:00,927 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 37) WFLYSRV0010: Deployed "slee-management-console.war" (runtime-name : "slee-management-console.war")
+13:56:01,018 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
+13:56:01,019 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
+13:56:01,019 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Full 10.1.0.Final (WildFly Core 2.2.0.Final) started in 17211ms - Started 828 of 1114 services (464 services are lazy, passive or on-demand)
+----		 
+
+. You need to use the Shell Client to connect to {this-platform} {this-application}  and configure the SS7 Stack and CAMEL Gateway routing rule.
+
+NOTE: If you are starting {this-platform} {this-application} for the first time, you must configure SS7.
+
+Once configured, the state, the configuration of SS7 and CAMEL is persisted.
+This means that your configuration will still be available even after restarting the server.
+The next chapter will provide more details about configuring SS7 and the CAMEL Gateway.
+
+
+.Procedure: Stop the Gateway
+. To stop the {this-platform} {this-application} , you must shut down the Wildfly Application Server.
+  To shut down the server(s) you must execute the `jboss-cli.sh --connect command=:shutdown` (Unix) or  `jboss-cli.bat --connect command=:shutdown` (Microsoft Windows) script in the [path]_{this-folder}-camel-{project-version}/wildfly-10.1.0.Final/bin_ directory (on Unix or Windows).
+. If the server stopped properly, you will see the following three lines as the  last output in the Unix terminal or Command Prompt: 
+----
+[Server] Shutdown complete
+Halting VM
+----
+
+[[_running_the_gateway_simulator]]
+== Running the Gateway - Simulator Profile
+
+The {this-platform} {this-application} offers you an option to run the Gateway with a "simulator" profile for testing purpose.
+The "simulator" profile is a pre-configured profile to work with the jss7-simulator.
+Starting the Gateway with the "simulator" profile is  similar to the steps explained for the "default" profile except that you must pass the string value "simulator" to the -c command line option when invoking the run script.
+ 
+----
+
+[bin]$ ./run.sh -c simulator
+----
+
+
+[[_running_shell]]
+== Running the Shell
+
+Before you execute commands to configure the Gateway, you must start the Shell client and connect to the managed instance.
+The shell terminal can be started by issuing the following command from [path]_{this-folder}-camel-{project-version}/wildfly-10.1.0.Final/bin_ directory: 
+
+[source]
+----
+[$] ./ss7-cli.sh
+----
+
+Once console starts, it will print the following information and await further commands:
+
+----
+
+version=2.0.0-SNAPSHOT,name=restcomm CLI,prefix=mobicents,vendor=TeleStax
+restcomm>
+----
+
+Executing further commands requires that you connect to a managed instance.
+For more details on connecting to an instance; for a list of all supported commands  and details on configuring the SS7 stack, refer to the {this-platform} SS7 Stack User Guide. 

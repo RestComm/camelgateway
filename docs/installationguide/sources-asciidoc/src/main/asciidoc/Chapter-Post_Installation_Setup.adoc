@@ -29,7 +29,7 @@ To configure and manage both the Stack and the Gateway you must use the Command 
 For instructions on starting the Shell and help with commands, please refer to the {this-platform}  {this-application}  Admin Guide. 
 
 [[_dialogic_setup]]
-== Extra setup when usage of Dialogic cards
+== Extra setup when usage of Dialogic cards (JBoss AS)
 
 If you use only m3ua stack for communicating via SS7 network we can skip this chapter. If you use legacy dialogic cards with or without m3ua you need to follow actions from this chaper.
 

@@ -1,5 +1,5 @@
 [[_setup_downloading]]
-= Downloading and Installing (JBoss AS)
+= Downloading and Installing (Wildfly 10)
 
 Installing {this-platform} {this-application} is easy and quick with the binary download.
 You can either download the binary release or download the source code and build from source.
@@ -24,7 +24,7 @@ Downloads]$ unzip <filename>
 When you download the binary release, you will notice that the top level directory is named `{this-folder}-camel-<version>` and immediately underneath, are four sub-directories as explained below: 
 
 * docs: Contains all relevant documentation in respective subfolders for JSLEE, jSS7 and CAMEL.
-* jboss-5.1.0.GA: The core server with two profiles "default" and "simulator". The "default" profile is a clean profile where you will have to start from scratch and configure the entire SS7 Stack and CAMEL Gateway.
+* wildfly-10.1.0.Final: The core server with two profiles "default" and "simulator". The "default" profile is a clean profile where you will have to start from scratch and configure the entire SS7 Stack and CAMEL Gateway.
   The "simulator" profile is a pre-configured profile to work with jss7-simulator.
   Refer to the Admin Guide for instructions on how to start the server in either of the profiles.
 * resources: Contains SLEE MAP, CAP and http-client RA jars.
@@ -40,20 +40,16 @@ When you download the binary release, you will notice that the top level directo
 				|+ jss7
 				|+ slee
 				|+ tools
-		|- jboss-5.1.0.GA
+		|- wildfly-10.1.0.Final
+				|+ appclient
 				|+ bin    //contains start up and shutdown scripts for the Server and the start up script for Shell.
-				|+ client
-				|+ common
 				|+ docs
+				|+ domain
 				|+ lib
-				|- server
-					|+ default	//clean profile to set up from scratch
-					|+ simulator	//pre-configured profile to work with the jss7-simulator
+				|+ modules //contains binaries including slee,s77 and camel
+				|+ simulator //pre-configured profile to work with the jss7-simulator
+				|+ standalone	//clean profile to set up from scratch
 		|- tools
-				|+ eclipslee
-				|+ jopr-plugin
-				|+ remote-slee-connection
-				|+ snmp
 				|+ {this-folder}-jss7-simulator
 				|+ TelScale-SCF-Server
 				|+ twiddle
@@ -74,18 +70,6 @@ In addition you must have the following tools installed.
 * `Subversion Client 1.4` : Instructions for using SVN, including install, can be found at http://subversion.tigris.org
 * `Maven 3.*` : Instructions for using Maven, including install, can be found at http://maven.apache.org/
 * `Ant 1.7.0` : Instructions for using Ant, including install, can be found at http://ant.apache.org
-
-
-[[_dialogic_setup]]
-== Extra setup when usage of Dialogic cards
-
-If you use only m3ua stack for communicating via SS7 network we can skip this chapter. If you use legacy dialogic cards with or without m3ua you need to follow actions from this chaper.
-
-.Procedure: Extra actions for dialogic card usage
-. Copy gct java lib: `gctApi.jar` from downloaded dialogic drivers (from folder `dpk/JAVA`) into the folder `jboss-5.1.0.GA/server/default/deploy/{this-folder}-camel-gateway/lib`.
-. Copy native lib: `libgctjni.so` from downloaded dialogic drivers (from folder `dpk/64` or `dpk/32` depending on JAVA 64 or 32-bit version) into the folder `jboss-5.1.0.GA/bin/META-INF/lib/linux2/x64` for JAVA 64-bit or `jboss-5.1.0.GA/bin/META-INF/lib/linux2/x86` for JAVA 32-bit.
-. Copy jboss mbean config files: `jboss-beans.xml` and `jboss-structure.xml` files from `template/META-INF-dialogic` folder (if we use dialogic boards WITHOUT m3ua) or from `template/META-INF-m3ua-dialogic` folder (if we use dialogic boards WITH m3ua together) to folder `jboss-5.1.0.GA/server/default/deploy/{this-folder}-camel-gateway/META-INF`
-. In the copied `jboss-beans.xml` file you need to find a bean with DialogicMtp3UserPart class and update properties `sourceModuleId` and `destinationModuleId` with modules ids that are configured in your dialogc board.
 
 
 [[_source_building]]
